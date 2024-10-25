@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
-import LottieAnimation from "./LottieAnimation";
-import { SPRING_API_URL } from "../constants/api";
+import LottieAnimation from "../../components/animations/LottieAnimation";
+import { SPRING_API_URL } from "../../constants/api";
 
 axios.defaults.withCredentials = true;
 

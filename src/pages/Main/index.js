@@ -1,7 +1,7 @@
 import React from "react";
-import instance from "../axios/TokenInterceptor";
-import Record from "./Record";
-import { SPRING_API_URL } from "../constants/api";
+import instance from "../../axios/TokenInterceptor";
+import Record from "../../components/Record";
+import { SPRING_API_URL } from "../../constants/api";
 
 const Main = () => {
   const testButton = async () => {
@@ -19,7 +19,7 @@ const Main = () => {
       <button onClick={testButton} className="button">
         테스트용 버튼
       </button>
-      <Record /> {/* Record 컴포넌트 추가 */}
+      <Record />
     </div>
   );
 };
