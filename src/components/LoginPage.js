@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import "../css/LoginPage.css";
 import Record from "./Record";
 import { SPRING_API_URL } from "../constants";
 
@@ -21,25 +20,25 @@ const LoginPage = (message) => {
   };
 
   return (
-    <div className="login-container">
-      <h2>복숭아 멘토~</h2>
-      <div className="social-login-buttons">
+    <div className="flex flex-col justify-center items-center h-screen text-center p-4">
+      <h2 className="mb-8 text-2xl font-bold">복숭아 멘토~</h2>
+      <div className="flex flex-col items-center">
         <img
           src="/images/kakao_login.svg"
           alt="Kakao Login"
-          className="social-icon"
+          className="w-48 mb-4 cursor-pointer"
           onClick={handleKakaoLoginClick}
         />
         <img
           src="/images/naver_login.svg"
           alt="Naver Login"
-          className="social-icon"
+          className="w-48 mb-4 cursor-pointer"
           onClick={handleNaverLoginClick}
         />
         <img
           src="/images/google_login.svg"
           alt="Google Login"
-          className="social-icon"
+          className="w-48 mb-4 cursor-pointer"
           onClick={handleGoogleLoginClick}
         />
         <Record /> {/* Record 컴포넌트 추가 */}
