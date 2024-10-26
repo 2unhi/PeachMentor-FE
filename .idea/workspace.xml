@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5dda6d2-e76f-446c-9c6c-4e3d50c35be1" name="Changes" comment="fix: nginx swagger 경로 추가">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b5dda6d2-e76f-446c-9c6c-4e3d50c35be1" name="Changes" comment="fix: nginx swagger 경로 수정" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,7 +106,7 @@
       <workItem from="1729692146717" duration="4405000" />
       <workItem from="1729745635847" duration="1487000" />
       <workItem from="1729751654242" duration="12954000" />
-      <workItem from="1729921835614" duration="1948000" />
+      <workItem from="1729921835614" duration="2259000" />
     </task>
     <task id="LOCAL-00001" summary="fix: nginx swagger 경로 추가">
       <option name="closed" value="true" />
@@ -118,7 +116,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729923255004</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix: nginx swagger 경로 수정">
+      <option name="closed" value="true" />
+      <created>1729923963486</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729923963486</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +132,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix: nginx swagger 경로 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: nginx swagger 경로 추가" />
+    <MESSAGE value="fix: nginx swagger 경로 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: nginx swagger 경로 수정" />
   </component>
 </project>
