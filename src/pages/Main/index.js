@@ -14,7 +14,7 @@ const Main = () => {
   };
 
   return (
-    <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-primary-00">
+    <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-[#fcfcfc]">
       <Header />
       <main className="flex-grow flex flex-col items-center justify-center px-4">
         <img src="/images/whale.png" alt="Whale" className="w-24 h-24 mb-4" />
