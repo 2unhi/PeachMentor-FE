@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import axios from "axios";
 import { getWaveBlob } from "webm-to-wav-converter";
-import {SPRING_API_URL} from "../constants";
+import {SPRING_API_URL} from "../constants/api";
 
 const Record = () => {
     const [stream, setStream] = useState(null);  // 마이크에서 가져온 오디오 스트림을 저장
