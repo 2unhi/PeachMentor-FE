@@ -5,6 +5,7 @@ import KakaoRedirectPage from "./components/oauth/KakaoRedirectPage";
 import NaverRedirectPage from "./components/oauth/NaverRedirectPage";
 import GoogleRedirectPage from "./components/oauth/GoogleRedirectPage";
 import Main from "./pages/Main";
+import MyPage from "./pages/MyPage";
 import "./App.css";
 
 const App = () => {
@@ -26,6 +27,9 @@ const App = () => {
             element={<GoogleRedirectPage />}
           />
           <Route path="/main" element={<Main />} />
+
+          {/* Header의 마이페이지 경로 */}
+          <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </BrowserRouter>
     </div>
