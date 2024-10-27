@@ -2,6 +2,7 @@ import React from "react";
 import instance from "../../axios/TokenInterceptor";
 import Record from "../../components/Record";
 import Header from "../../components/Header";
+import NavBar from "../../components/NavBar";
 import { SPRING_API_URL } from "../../constants/api";
 
 const Main = () => {
@@ -16,6 +17,7 @@ const Main = () => {
   return (
     <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-[#fcfcfc]">
       <Header />
+      {/* 이후 메인 페이지 컨텐츠 수정 예정 */}
       <main className="flex-grow flex flex-col items-center justify-center px-4">
         <img src="/images/whale.png" alt="Whale" className="w-24 h-24 mb-4" />
         <h1 className="text-xl font-bold text-primary-900">메인 페이지</h1>
@@ -27,6 +29,7 @@ const Main = () => {
         </button>
         <Record />
       </main>
+      <NavBar />
     </div>
   );
 };
