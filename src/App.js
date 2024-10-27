@@ -6,6 +6,8 @@ import NaverRedirectPage from "./components/oauth/NaverRedirectPage";
 import GoogleRedirectPage from "./components/oauth/GoogleRedirectPage";
 import Main from "./pages/Main";
 import MyPage from "./pages/MyPage";
+import Calendar from "./pages/Calendar";
+import Statistics from "./pages/Statistics";
 import "./App.css";
 
 const App = () => {
@@ -30,6 +32,10 @@ const App = () => {
 
           {/* Header의 마이페이지 경로 */}
           <Route path="/mypage" element={<MyPage />} />
+
+          {/* NavBar의 탭 연결 페이지 경로 */}
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/statistics" element={<Statistics />} />
         </Routes>
       </BrowserRouter>
     </div>
