@@ -1,9 +1,9 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, {useCallback, useRef, useState} from "react";
 import axios from "axios";
-import { getWaveBlob } from "webm-to-wav-converter";
-import {LOCAL_FASTAPI_API_URL, LOCAL_SPRING_API_URL, SPRING_API_URL} from "../constants/api";
+import {getWaveBlob} from "webm-to-wav-converter";
+import {LOCAL_FASTAPI_API_URL} from "../constants/api";
 
-const Record = () => {
+const RecordVV = () => {
     const [stream, setStream] = useState(null);  // 마이크에서 가져온 오디오 스트림을 저장
     const [media, setMedia] = useState(null);    // MediaRecorder 객체를 저장하여 녹음을 관리
     const [onRec, setOnRec] = useState(true);    // 녹음 중인지 여부를 추적
@@ -22,7 +22,7 @@ const Record = () => {
         }
 
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const stream = await navigator.mediaDevices.getUserMedia({audio: true});
             const mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.start();
             setStream(stream);
@@ -37,7 +37,7 @@ const Record = () => {
             source.connect(workletNode).connect(audioContextRef.current.destination);
 
             workletNode.port.onmessage = (event) => {
-                const { currentTime } = event.data;
+                const {currentTime} = event.data;
                 if (currentTime > 60) {  // 1분 후 자동 정지
                     stopRecording(mediaRecorder, source);
                 }
@@ -60,7 +60,7 @@ const Record = () => {
                 const webmUrl = URL.createObjectURL(e.data);
                 alert(webmUrl);
                 console.log("녹음된 데이터:", e.data);
-                const wavBlob = await getWaveBlob(e.data,true);
+                const wavBlob = await getWaveBlob(e.data, true);
                 console.log("변환 데이터: ", wavBlob);
 
                 setAudioUrl(wavBlob);
@@ -84,7 +84,10 @@ const Record = () => {
     // 오디오 파일 생성하기
     const onSubmitAudioFile = useCallback(async () => {
         if (audioUrl) {
-            const sound = new File([audioUrl], "soundBlob.wav", { lastModified: new Date().getTime(), type: "audio/wave" });
+            const sound = new File([audioUrl], "soundBlob.wav", {
+                lastModified: new Date().getTime(),
+                type: "audio/wave"
+            });
             console.log(sound); // File 정보 출력
             sendAudioFile(sound);
         }
@@ -92,14 +95,17 @@ const Record = () => {
 
     // 오디오 파일 fastapi 서버로 전달하기
     const sendAudioFile = async (sound) => {
-        try{
+        try {
             const formData = new FormData();
             formData.append('file', sound);
-            await axios.post(`${LOCAL_FASTAPI_API_URL}/record/voice`, formData, {
+            formData.append('answerId', 1);
+            const response = await axios.post(`${LOCAL_FASTAPI_API_URL}/record/insight`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
             });
+            console.log(response.data);
+            console.log(response.data.insight);
             console.log('녹음 파일 전송 성공');
         } catch (error) {
             console.error('녹음 파일 전송 실패');
@@ -116,4 +122,4 @@ const Record = () => {
     );
 };
 
-export default Record;
+export default RecordVV;

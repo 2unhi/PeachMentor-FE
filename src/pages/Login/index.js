@@ -2,6 +2,9 @@ import React from "react";
 import axios from "axios";
 import LottieAnimation from "../../components/animations/LottieAnimation";
 import { SPRING_API_URL } from "../../constants/api";
+import Record from "../../components/Record";
+import RecordVV from "../../components/RecordVV";
+
 
 axios.defaults.withCredentials = true;
 
@@ -46,6 +49,8 @@ const LoginPage = () => {
           className="w-full max-w-[360px] h-[60px] cursor-pointer hover:opacity-90 transition-opacity"
           onClick={handleGoogleLoginClick}
         />
+          <Record />
+          <RecordVV />
       </div>
     </div>
   );
