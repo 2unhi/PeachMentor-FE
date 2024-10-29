@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import axios from "axios";
 import { getWaveBlob } from "webm-to-wav-converter";
-import { SPRING_API_URL } from "../constants/api";
+import { FASTAPI_API_URL } from "../constants/api";
 import VolumeVisualizer from "../pages/Main/components/VolumeVisualizer";
 
 const Record = () => {
@@ -101,7 +101,7 @@ const Record = () => {
     try {
       const formData = new FormData();
       formData.append("file", sound);
-      await axios.post(`${SPRING_API_URL}/record`, formData, {
+      await axios.post(${FASTAPI_API_URL}/record, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
