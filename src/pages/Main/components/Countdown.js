@@ -17,7 +17,7 @@ const Countdown = ({ onCountdownComplete }) => {
   }, [secondsLeft, onCountdownComplete]);
 
   return (
-    <div className="text-xl font-bold text-primary-50 font-paperlogy-title">
+    <div className="mt-10 text-xl font-bold text-primary-50 font-paperlogy-title">
       {secondsLeft}초 후 시작합니다!
     </div>
   );
