@@ -8,6 +8,7 @@ import Main from "./pages/Main";
 import MyPage from "./pages/MyPage";
 import Calendar from "./pages/Calendar";
 import Statistics from "./pages/Statistics";
+import GuestRecord from "./pages/GuestRecord";
 import "./App.css";
 
 const App = () => {
@@ -36,6 +37,9 @@ const App = () => {
           {/* NavBar의 탭 연결 페이지 경로 */}
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/statistics" element={<Statistics />} />
+
+          {/* GuestRecord */}
+          <Route path="/guestrecord" element={<GuestRecord />} />
         </Routes>
       </BrowserRouter>
     </div>
