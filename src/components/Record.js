@@ -101,7 +101,7 @@ const Record = () => {
     try {
       const formData = new FormData();
       formData.append("file", sound);
-      await axios.post(${FASTAPI_API_URL}/record, formData, {
+      await axios.post(`${FASTAPI_API_URL}/record`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
