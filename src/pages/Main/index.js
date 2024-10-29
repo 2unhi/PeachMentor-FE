@@ -4,10 +4,13 @@ import NavBar from "../../components/NavBar";
 import Countdown from "./components/Countdown";
 import Question from "./components/Question";
 import ProgressTimer from "./components/ProgressTimer";
+import Record from "../../components/Record";
+import VolumeVisualizer from "./components/VolumeVisualizer";
 
 const Main = () => {
   const [showCountdown, setShowCountdown] = useState(false);
   const [showProgressTimer, setShowProgressTimer] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
 
   const handleQuestionClick = () => {
     setShowCountdown(true);
@@ -16,11 +19,13 @@ const Main = () => {
   const handleCountdownComplete = () => {
     setShowCountdown(false);
     setShowProgressTimer(true); // 1분 타이머 시작
+    setIsRecording(true); // 녹음 시작
   };
 
   const handleProgressTimeUp = () => {
     alert("1분이 종료되었습니다!");
     setShowProgressTimer(false);
+    setIsRecording(false); // 녹음 중지
   };
 
   const questionText =
@@ -48,7 +53,11 @@ const Main = () => {
 
         {/* 1분 타이머 표시 */}
         {showProgressTimer && (
-          <ProgressTimer duration={1} onTimeUp={handleProgressTimeUp} />
+          <>
+            <ProgressTimer duration={1} onTimeUp={handleProgressTimeUp} />
+            <Record />
+            <VolumeVisualizer isRecording={isRecording} />{" "}
+          </>
         )}
       </main>
       <NavBar />
