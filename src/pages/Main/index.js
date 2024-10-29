@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import Countdown from "./components/Countdown";
@@ -7,6 +7,7 @@ import ProgressTimer from "./components/ProgressTimer";
 import Record from "../../components/Record";
 import VolumeVisualizer from "./components/VolumeVisualizer";
 import AISpeechPopup from "./components/AISpeechPopup";
+import { ClockLoader } from "react-spinners"; // 로딩중 효과 (ClockLoader)
 
 const Main = () => {
   const [showCountdown, setShowCountdown] = useState(false);
@@ -14,7 +15,7 @@ const Main = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [showAISpeechPopup, setShowAISpeechPopup] = useState(false);
   const [showAnalysisMessage, setShowAnalysisMessage] = useState(false);
-  const [loading, setLoading] = useState(false); // 로딩 상태 추가
+  const [loading, setLoading] = useState(false);
   const aiResponse = "오늘의 질문에 대해 AI가 답변한 내용"; // 이후에 GPT와 연동 (임시로 텍스트 삽입)
 
   const handleQuestionClick = () => {
@@ -30,12 +31,8 @@ const Main = () => {
   const handleProgressTimeUp = () => {
     setShowProgressTimer(false);
     setIsRecording(false); // 녹음 중지
-    setShowAnalysisMessage(true); // 분석 메시지 표시
     setLoading(true); // 로딩 시작
-    // 2초 후 로딩 종료 (예시)
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    setShowAnalysisMessage(true); // 분석 메시지 표시
   };
 
   const handleCloseAISpeechPopup = () => {
@@ -78,21 +75,18 @@ const Main = () => {
           </>
         )}
 
-        {showAnalysisMessage && (
+        {loading && (
           <div className="flex flex-col items-center justify-center mt-4">
-            <p className="text-xl font-semibold text-center text-grayscale-100">
-              답변 내용을 분석 중입니다
+            <p className="mb-10 text-xl font-semibold text-center text-grayscale-100">
+              답변 내용을 분석 중입니다.
             </p>
-            {loading ? ( // 로딩 상태에 따른 표시
-              <div className="mt-4 loader" /> // 로딩 애니메이션
-            ) : (
-              <button
-                onClick={handleShowAISpeechPopup}
-                className="px-6 py-2 mt-8 font-semibold text-white rounded-full bg-primary-50"
-              >
-                AI 답변 보기
-              </button>
-            )}
+            <ClockLoader color="#4A90E2" loading={loading} size={60} />
+            <button
+              onClick={handleShowAISpeechPopup}
+              className="px-8 py-3 mt-10 text-lg font-semibold text-white rounded-full bg-primary-50"
+            >
+              AI 답변 보기
+            </button>
           </div>
         )}
 
