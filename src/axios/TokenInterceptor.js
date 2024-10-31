@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {SPRING_API_URL} from "../constants/api";
 
 const instance = axios.create();
 
@@ -48,7 +49,7 @@ instance.interceptors.response.use(async function (response) {
         }
         if (data.message === "유효하지 않은 토큰") {
             try {
-                const tokenReissueResult = await instance.post('http://localhost:8080/reissue');
+                const tokenReissueResult = await instance.post(`${SPRING_API_URL}/reissue`);
                 if (tokenReissueResult.status === 200) {
                     // 재발급 성공시 로컬스토리지에 토큰 저장
                     const accessToken = tokenReissueResult.headers['authorization'] || tokenReissueResult.headers['Authorization'];
@@ -72,7 +73,7 @@ instance.interceptors.response.use(async function (response) {
 const Logout = async () => {
     try {
         // 로그아웃 API 호출
-        await axios.post('http://localhost:8080/logout');
+        await axios.post(`${SPRING_API_URL}/logout`);
         localStorage.removeItem('accessToken');
         window.location.href = '/'; // 로그인 페이지 이동
     } catch (error) {

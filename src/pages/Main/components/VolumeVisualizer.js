@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { FaVolumeUp } from "react-icons/fa";
 
 const VolumeVisualizer = ({ audioContext, source }) => {
   const [scale, setScale] = useState(1);
@@ -37,13 +38,14 @@ const VolumeVisualizer = ({ audioContext, source }) => {
 
   return (
     <div
-      className="flex items-center justify-center rounded-full shadow-lg bg-primary-40"
+      className="flex items-center justify-center mt-8"
       style={{
-        width: `${scale * 60}px`,
-        height: `${scale * 60}px`,
-        boxShadow: `0 0 ${scale * 10}px rgba(0, 122, 255, 0.3)`,
+        transform: `scale(${scale})`,
+        transition: "transform 0.1s ease",
       }}
-    />
+    >
+      <FaVolumeUp className="text-4xl text-primary-500" />
+    </div>
   );
 };
 
