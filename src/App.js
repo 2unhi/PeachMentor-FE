@@ -9,6 +9,7 @@ import MyPage from "./pages/MyPage";
 import Calendar from "./pages/Calendar";
 import Statistics from "./pages/Statistics";
 import GuestRecord from "./pages/GuestRecord";
+import RecordScript from "./pages/RecordScript";
 import "./App.css";
 
 const App = () => {
@@ -40,6 +41,9 @@ const App = () => {
 
           {/* GuestRecord */}
           <Route path="/guestrecord" element={<GuestRecord />} />
+
+          {/* RecordScript */}
+          <Route path="/recordscript" element={<RecordScript />} />
         </Routes>
       </BrowserRouter>
     </div>
