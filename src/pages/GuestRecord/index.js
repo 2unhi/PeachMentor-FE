@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../../components/Header";
-import NavBar from "../../components/NavBar";
-import Record from "../../components/Record";
+import GuestRecordComponent from "./components/GuestRecord";
 import scriptContent from "../../constants/userRecordScript";
 
 const ScriptBox = ({ content }) => (
@@ -11,25 +10,15 @@ const ScriptBox = ({ content }) => (
 );
 
 const GuestRecord = () => {
-  const [isRecording, setIsRecording] = useState(false);
-
-  const handleRecordToggle = () => {
-    setIsRecording((prev) => !prev);
-  };
-
   return (
     <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-[#fcfcfc]">
       <Header />
       <main className="flex flex-col items-center justify-center flex-grow p-4">
         <ScriptBox content={scriptContent} />
-        <div className="mt-10">
-          <Record
-            isRecording={isRecording}
-            onRecordToggle={handleRecordToggle}
-          />
+        <div className="mt-6">
+          <GuestRecordComponent />
         </div>
       </main>
-      <NavBar />
     </div>
   );
 };
