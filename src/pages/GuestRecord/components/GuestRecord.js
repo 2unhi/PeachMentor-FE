@@ -121,7 +121,7 @@ const GuestRecord = () => {
             사용자 목소리 녹음이 완료되었습니다 :)
           </p>
           <button
-            onClick={() => navigate("/")} // 메인 페이지로 이동
+            onClick={() => navigate("/main")} // 메인 페이지로 이동
             className="px-8 text-lg font-semibold text-white rounded-full bg-primary-50"
           >
             복숭아 멘토 시작하기
