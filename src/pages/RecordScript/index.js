@@ -1,63 +1,36 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { FaVolumeUp } from "react-icons/fa";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 
 // 스크립트 확인을 위한 임시 더미 데이터
 const RecordScript = ({ selectedDate }) => {
-  const [userScript, setUserScript] = useState(
+  const [userScript] = useState(
     "사용자의 더미 스크립트 내용이 여기에 들어갑니다. " +
       "이 내용은 예시로 보여주기 위한 더미 텍스트입니다. 스크립트 내용이 길어질 경우 어떻게 표시되는지 확인할 수 있습니다. ".repeat(
         3
       )
   );
-  const [aiScript, setAiScript] = useState(
+  const [aiScript] = useState(
     "AI가 수정한 더미 스크립트 내용이 여기에 들어갑니다. " +
       "이 내용은 예시로 보여주기 위한 더미 텍스트입니다. 스크립트 내용이 길어질 경우 어떻게 표시되는지 확인할 수 있습니다. ".repeat(
         3
       )
   );
-  const [feedback, setFeedback] = useState(
+  const [feedback] = useState(
     "AI 피드백의 더미 내용이 여기에 들어갑니다. " +
       "이 내용은 예시로 보여주기 위한 더미 텍스트입니다. 스크립트 내용이 길어질 경우 어떻게 표시되는지 확인할 수 있습니다. ".repeat(
         3
       )
   );
 
-  // API 연동은 임시로 지정해놓음 (추후 수정)
-  const [userAudioUrl, setUserAudioUrl] = useState(null);
-  const [aiAudioUrl, setAiAudioUrl] = useState(null);
+  // 임시 오디오 URL
+  const userAudioUrl = "/path/to/user-audio.mp3";
+  const aiAudioUrl = "/path/to/ai-audio.mp3";
 
   const [isUserScriptOpen, setIsUserScriptOpen] = useState(false);
   const [isAiScriptOpen, setIsAiScriptOpen] = useState(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
-
-  useEffect(() => {
-    // 더미데이터를 사용하고 있어서 현재 fetchData 경고 발생 (추후 수정)
-    const fetchData = async () => {
-      try {
-        const userResponse = await axios.get(
-          `/api/user-script?date=${selectedDate}`
-        );
-        const aiResponse = await axios.get(
-          `/api/ai-script?date=${selectedDate}`
-        );
-        const feedbackResponse = await axios.get(
-          `/api/feedback?date=${selectedDate}`
-        );
-
-        setUserScript(userResponse.data.script);
-        setAiScript(aiResponse.data.script);
-        setFeedback(feedbackResponse.data.feedback);
-
-        setUserAudioUrl(userResponse.data.audioUrl);
-        setAiAudioUrl(aiResponse.data.audioUrl);
-      } catch (error) {
-        console.error("데이터를 불러오는 중 오류가 발생했습니다:", error);
-      }
-    };
-  }, [selectedDate]);
 
   const playAudio = (audioUrl) => {
     const audio = new Audio(audioUrl);
