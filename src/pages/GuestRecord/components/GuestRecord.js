@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
-import axios from "axios";
 import { getWaveBlob } from "webm-to-wav-converter";
 import { FASTAPI_API_URL } from "../../../constants/api";
 import VolumeVisualizer from "../../Main/components/VolumeVisualizer";
 import { useNavigate } from "react-router-dom";
+import instance from "../../../axios/TokenInterceptor";
 
 const GuestRecord = () => {
   const [stream, setStream] = useState(null); // 마이크에서 가져온 오디오 스트림을 저장
@@ -86,7 +86,7 @@ const GuestRecord = () => {
     try {
       const formData = new FormData();
       formData.append("file", sound);
-      await axios.post(`${FASTAPI_API_URL}/record`, formData, {
+      await instance.post(`${FASTAPI_API_URL}/record/voice`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
