@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { getWaveBlob } from "webm-to-wav-converter";
 import { FASTAPI_API_URL } from "../../../constants/api";
-import VolumeVisualizer from "../../Main/components/VolumeVisualizer";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../axios/TokenInterceptor";
 
@@ -107,13 +106,13 @@ const GuestRecord = () => {
         {isRecording ? "녹음 중지" : "녹음 시작"}
       </button>
 
-      {/* 녹음 중일 때 볼륨 시각화 */}
-      {isRecording && audioContextRef.current && sourceRef.current && (
-        <VolumeVisualizer
-          audioContext={audioContextRef.current}
-          source={sourceRef.current}
-        />
-      )}
+      {/*/!* 녹음 중일 때 볼륨 시각화 *!/*/}
+      {/*{isRecording && audioContextRef.current && sourceRef.current && (*/}
+      {/*  <VolumeVisualizer*/}
+      {/*    audioContext={audioContextRef.current}*/}
+      {/*    source={sourceRef.current}*/}
+      {/*  />*/}
+      {/*)}*/}
 
       {/* 녹음이 완료된 경우 메시지와 버튼 */}
       {!isRecording && audioUrl && (
