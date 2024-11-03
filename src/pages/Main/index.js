@@ -10,8 +10,10 @@ import AISpeechPopup from "./components/AISpeechPopup";
 import {ClockLoader} from "react-spinners"; // 로딩중 효과 (ClockLoader)
 import {SPRING_API_URL} from "../../constants/api";
 import instance from "../../axios/TokenInterceptor";
+import {useNavigate} from "react-router-dom";
 
 const Main = () => {
+    const navigate = useNavigate();
     const [showCountdown, setShowCountdown] = useState(false);
     const [showProgressTimer, setShowProgressTimer] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
@@ -88,7 +90,7 @@ const Main = () => {
 
                 {showProgressTimer && (
                     <>
-                        <ProgressTimer duration={1} onTimeUp={handleProgressTimeUp}/>
+                        <ProgressTimer duration={0.25} onTimeUp={handleProgressTimeUp}/>
                         <Record
                             answerId={answerId}
                             questionText={questionText}
@@ -109,6 +111,12 @@ const Main = () => {
                             className="px-8 py-3 mt-10 text-lg font-semibold text-white rounded-full bg-primary-50"
                         >
                             AI 답변 보기
+                        </button>
+                        <button
+                            onClick={() => navigate("/recordscript")} // 화살표 함수로 변경
+                            className="px-8 py-3 mt-10 text-lg font-semibold text-white rounded-full bg-primary-50"
+                        >
+                            피드백 받기
                         </button>
                     </div>
                 )}
