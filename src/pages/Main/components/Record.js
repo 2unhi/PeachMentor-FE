@@ -12,8 +12,10 @@ const Record = ({
                     answerId,
                     questionText,
                     onResponse,
+                    setInsightComplete,
+                    setAnalysisComplete,
                     handleProgressTimeUp,
-                    handleStopRecording
+                    handleStopRecording,
                 }) => {
     const [stream, setStream] = useState(null); // 마이크에서 가져온 오디오 스트림을 저장
     const [media, setMedia] = useState(null); // MediaRecorder 객체를 저장하여 녹음을 관리
@@ -31,7 +33,7 @@ const Record = ({
     const getFeedback = useCallback(async () => {
         try {
             const response = await instance.get(
-                `${SPRING_API_URL}/feedback?answerId=${answerId}`
+                `${SPRING_API_URL}/feedbacks?answerId=${answerId}`
             );
             if (response.data.isSuccess) {
                 setUserAudioUrl(response.data.result.beforeAudioLink);
@@ -39,13 +41,15 @@ const Record = ({
                 setUserScript(response.data.result.beforeScript);
                 setAiScript(response.data.result.afterScript);
                 setFeedback(response.data.result.feedbackText);
+
+                setAnalysisComplete(true);
             } else {
                 console.error("데이터 api 오류");
             }
         } catch (error) {
             console.error("데이터 받아오기 실패");
         }
-    }, [answerId, setUserAudioUrl, setAiAudioUrl, setUserScript, setAiScript, setFeedback]);
+    }, [answerId, setUserAudioUrl, setAiAudioUrl, setUserScript, setAiScript, setFeedback, setAnalysisComplete]);
 
     const sendAudioFile = useCallback(async (sound) => {
         try {
@@ -54,7 +58,7 @@ const Record = ({
             formData.append("answerId", parseInt(answerId, 10));
             formData.append("question", questionText);
             const response = await instance.post(
-                `${FASTAPI_API_URL}/record/insight`,
+                `${FASTAPI_API_URL}/records/insights`,
                 formData,
                 {
                     headers: {"Content-Type": "multipart/form-data"},
@@ -62,11 +66,11 @@ const Record = ({
             );
             onResponse(response.data.insight);
             getFeedback();
-
+            setInsightComplete(true);
         } catch (error) {
             console.error("인사이트 받아오기 실패");
         }
-    }, [answerId, questionText, onResponse, getFeedback]);
+    }, [answerId, questionText, onResponse, getFeedback, setInsightComplete]);
 
     const onSubmitAudioFile = useCallback(async (audioUrl) => {
         if (audioUrl) {
