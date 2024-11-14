@@ -5,6 +5,10 @@ import NavBar from "../../components/NavBar";
 import { useRecordContext } from "../../context/RecordContext";
 import AISpeechPopup from "../Main/components/AISpeechPopup";
 
+const userImage = "/images/record_user.png";
+const aiImage = "/images/record_ai.png";
+const feedbackImage = "/images/record_feedback.png";
+
 // 스크립트 확인을 위한 임시 더미 데이터
 const RecordScript = ({ selectedDate }) => {
   // feedback 관련 상태 전부 Context 관리
@@ -46,17 +50,22 @@ const RecordScript = ({ selectedDate }) => {
 
           {/* 사용자 스피치 스크립트 */}
           <div
-            className="relative w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-30"
+            className="relative flex items-center w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-40"
             onClick={toggleUserScript}
-            style={{
-              height: isUserScriptOpen ? "auto" : "4rem",
-              transition: "height 0.3s ease",
-            }}
           >
-            <h2 className="text-base font-semibold">개인 스크립트</h2>
-            {isUserScriptOpen && (
-              <p className="mt-2 text-grayscale-90">{userScript}</p>
-            )}
+            <img src={userImage} alt="User Script" className="w-10 h-10 mr-3" />
+            <div className="flex-1">
+              <h2 className="text-base font-semibold">내가 말한 스크립트</h2>
+              <p className="mt-1 text-xs text-grayscale-90">
+                간투어, 멈춘 시간 등이 포함됩니다.
+              </p>
+              {isUserScriptOpen && (
+                <p className="mt-2 text-grayscale-90 transition-all duration-300 ease-in-out max-h-[150px] overflow-hidden">
+                  {userScript}
+                </p>
+              )}
+            </div>
+            {/* 오디오 재생 버튼 */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -70,17 +79,22 @@ const RecordScript = ({ selectedDate }) => {
 
           {/* AI 수정 스피치 스크립트 */}
           <div
-            className="relative w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-30"
+            className="relative flex items-center w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-40"
             onClick={toggleAiScript}
-            style={{
-              height: isAiScriptOpen ? "auto" : "4rem",
-              transition: "height 0.3s ease",
-            }}
           >
-            <h2 className="text-base font-semibold">AI가 수정한 스크립트</h2>
-            {isAiScriptOpen && (
-              <p className="mt-2 text-grayscale-90">{aiScript}</p>
-            )}
+            <img src={aiImage} alt="AI Script" className="w-10 h-10 mr-3" />
+            <div className="flex-1">
+              <h2 className="text-base font-semibold">AI가 수정한 스크립트</h2>
+              <p className="mt-1 text-xs text-grayscale-90">
+                내가 말한 스크립트를 AI가 직접 수정했어요.
+              </p>
+              {isAiScriptOpen && (
+                <p className="mt-2 text-grayscale-90 transition-all duration-300 ease-in-out max-h-[150px] overflow-hidden">
+                  {aiScript}
+                </p>
+              )}
+            </div>
+            {/* 오디오 재생 버튼 */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -94,17 +108,25 @@ const RecordScript = ({ selectedDate }) => {
 
           {/* AI 피드백 */}
           <div
-            className="relative w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-30"
+            className="relative flex items-center w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-40"
             onClick={toggleFeedback}
-            style={{
-              height: isFeedbackOpen ? "auto" : "4rem",
-              transition: "height 0.3s ease",
-            }}
           >
-            <h2 className="text-base font-semibold">AI 피드백</h2>
-            {isFeedbackOpen && (
-              <p className="mt-2 text-grayscale-90">{feedback}</p>
-            )}
+            <img
+              src={feedbackImage}
+              alt="Feedback"
+              className="w-10 h-10 mr-3"
+            />
+            <div className="flex-1">
+              <h2 className="text-base font-semibold">AI 피드백</h2>
+              <p className="mt-1 text-xs text-grayscale-90">
+                복숭아멘토의 상세한 피드백을 확인하세요!
+              </p>
+              {isFeedbackOpen && (
+                <p className="mt-2 text-grayscale-90 transition-all duration-300 ease-in-out max-h-[150px] overflow-hidden">
+                  {feedback}
+                </p>
+              )}
+            </div>
           </div>
         </div>
         <NavBar />
