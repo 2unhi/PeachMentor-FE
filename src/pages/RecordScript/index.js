@@ -4,6 +4,7 @@ import NavBar from "../../components/NavBar";
 import { useRecordContext } from "../../context/RecordContext";
 import AISpeechPopup from "../Main/components/AISpeechPopup";
 import ScriptBox from "./components/ScriptBox";
+import SelfFeedbackPopup from "./components/SelfFeedbackPopup";
 
 const userImage = "/images/record_user.png";
 const aiImage = "/images/record_ai.png";
@@ -25,6 +26,7 @@ const RecordScript = ({ selectedDate }) => {
   const [isAiScriptOpen, setIsAiScriptOpen] = useState(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false); // AI 답변 팝업 상태
+  const [isFeedbackPopupOpen, setIsFeedbackPopupOpen] = useState(false); // 셀프 피드백 팝업 상태
   const [activeAudio, setActiveAudio] = useState(null);
 
   const playAudioWithGauge = (audioUrl) => {
@@ -38,14 +40,24 @@ const RecordScript = ({ selectedDate }) => {
     <div className="flex flex-col items-center min-h-screen max-w-[500px] w-full overflow-y-auto bg-[#f9f9f9]">
       <Header />
       <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
-        <div className="flex flex-col items-center flex-1 w-full max-h-screen p-4 mt-4 mb-16 space-y-6 overflow-y-auto">
-          {/* AI 답변 보기 버튼 */}
-          <button
-            onClick={() => setIsPopupOpen(true)}
-            className="px-6 py-3 text-lg font-semibold text-white rounded-full bg-primary-50"
-          >
-            AI 답변 보기
-          </button>
+        <div className="flex flex-col items-center flex-1 w-full p-4 mt-4 mb-16 space-y-6">
+          <div className="flex mb-4 space-x-8">
+            {/* AI 답변 보기 버튼 */}
+            <button
+              onClick={() => setIsPopupOpen(true)}
+              className="flex-1 py-4 text-lg font-semibold text-white rounded-full px-7 bg-primary-50 whitespace-nowrap"
+            >
+              AI 답변 보기
+            </button>
+
+            {/* 셀프 피드백 체크 버튼 */}
+            <button
+              onClick={() => setIsFeedbackPopupOpen(true)}
+              className="flex-1 py-4 text-lg font-semibold text-white rounded-full px-7 bg-primary-50 whitespace-nowrap"
+            >
+              피드백 체크
+            </button>
+          </div>
 
           {/* 상단 메시지 */}
           <div className="relative flex flex-col w-full max-w-md px-4 py-2 rounded-md bg-grayscale-10">
@@ -100,7 +112,13 @@ const RecordScript = ({ selectedDate }) => {
       <AISpeechPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
-        response={aiResponses} // Context에서 전달된 AI 답변 사용
+        response={aiResponses}
+      />
+
+      {/* 셀프 피드백 팝업 */}
+      <SelfFeedbackPopup
+        isOpen={isFeedbackPopupOpen}
+        onClose={() => setIsFeedbackPopupOpen(false)}
       />
     </div>
   );
