@@ -37,6 +37,19 @@ const Record = ({
         }
     }, [answerId, setAnalysisComplete]);
 
+    const sendInsight = useCallback(async (insight) => {
+        try {
+            const response = await instance.post(
+                `${SPRING_API_URL}/insights?answerId=${answerId}`, {insight: insight}
+            );
+            if (response.data.isSuccess) {
+                console.log("AI 인사이트 답변 서버에 저장하기 성공");
+            }
+        } catch (error) {
+            console.error("AI 인사이트 답변 서버에 저장하기 실패");
+        }
+    }, [answerId])
+
     const sendAudioFile = useCallback(async (sound) => {
         try {
             const formData = new FormData();
@@ -50,14 +63,17 @@ const Record = ({
                     headers: {"Content-Type": "multipart/form-data"},
                 }
             );
-            onResponse(response.data.insight);
+            const insight = response.data.insight;
+            onResponse(insight);
             setInsightComplete(true);
+
+            sendInsight(insight);
             getFeedback();
             console.log("AI 인사이트 받아오기 성공");
         } catch (error) {
             console.error("인사이트 받아오기 실패");
         }
-    }, [answerId, questionText, onResponse, getFeedback, setInsightComplete]);
+    }, [answerId, questionText, onResponse, sendInsight, getFeedback, setInsightComplete]);
 
     const onSubmitAudioFile = useCallback(async (audioUrl) => {
         if (audioUrl) {
@@ -83,10 +99,9 @@ const Record = ({
         mediaRecorder.stop();
         source.disconnect();
 
-        // AudioContext가 열려있는지 확인 후 닫기
         if (audioContextRef.current) {
             audioContextRef.current.close().then(() => {
-                audioContextRef.current = null; // AudioContext를 닫은 후 null로 설정
+                audioContextRef.current = null;
                 setOnRec(false);
             });
         }
@@ -95,10 +110,8 @@ const Record = ({
     // 녹음 시작
     const onRecAudio = useCallback(async () => {
         if (audioContextRef.current) {
-            // AudioContext가 이미 존재하면 재사용
             console.log("AudioContext already exists, reusing.");
         } else {
-            // AudioContext가 없으면 새로 생성
             audioContextRef.current = new (window.AudioContext ||
                 window.webkitAudioContext)();
         }
