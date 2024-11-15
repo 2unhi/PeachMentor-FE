@@ -50,10 +50,12 @@ const RecordScript = ({ selectedDate }) => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen max-w-[500px] w-full overflow-y-auto bg-[#f9f9f9]">
-      <Header />
-      <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
-        <div className="relative flex flex-col items-center flex-1 w-full p-4 mt-4 mb-16 space-y-6">
+    <div className="flex flex-col items-center max-w-[500px] w-full h-screen bg-white pt-24">
+      <div className="fixed top-0 z-10 w-full">
+        <Header />
+      </div>
+      <div className="flex-1 w-full max-w-[500px] mx-auto p-4">
+        <div className="relative flex flex-col items-center space-y-6">
           <div className="flex mb-4 space-x-8">
             {/* AI 답변 보기 버튼 */}
             <button
@@ -73,7 +75,7 @@ const RecordScript = ({ selectedDate }) => {
 
             {/* 해당 페이지에 들어왔을 때 5초간 보여지는 강조 문구 */}
             {showGuide && (
-              <div className="absolute flex items-center space-x-1 left-[47%] transform -translate-x-[47%] -top-2 animate-bounce">
+              <div className="absolute flex items-center space-x-1 left-[47%] transform -translate-x-[47%] -top-6 animate-bounce">
                 <FaStar className="text-yellow-400" />
                 <p className="text-sm font-semibold">먼저 진행해주세요</p>
                 <FaStar className="text-yellow-400" />
@@ -127,6 +129,9 @@ const RecordScript = ({ selectedDate }) => {
             toggleOpen={() => setIsFeedbackOpen(!isFeedbackOpen)}
           />
         </div>
+      </div>
+
+      <div className="fixed bottom-0 z-10 w-full max-w-[500px] bg-white">
         <NavBar />
       </div>
 
