@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { FaVolumeUp } from "react-icons/fa";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import { useRecordContext } from "../../context/RecordContext";
 import AISpeechPopup from "../Main/components/AISpeechPopup";
+import ScriptBox from "./components/ScriptBox";
 
 const userImage = "/images/record_user.png";
 const aiImage = "/images/record_ai.png";
@@ -25,15 +25,14 @@ const RecordScript = ({ selectedDate }) => {
   const [isAiScriptOpen, setIsAiScriptOpen] = useState(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false); // AI 답변 팝업 상태
+  const [activeAudio, setActiveAudio] = useState(null);
 
-  const playAudio = (audioUrl) => {
+  const playAudioWithGauge = (audioUrl) => {
     const audio = new Audio(audioUrl);
     audio.play();
+    setActiveAudio(audioUrl);
+    audio.onended = () => setActiveAudio(null);
   };
-
-  const toggleUserScript = () => setIsUserScriptOpen(!isUserScriptOpen);
-  const toggleAiScript = () => setIsAiScriptOpen(!isAiScriptOpen);
-  const toggleFeedback = () => setIsFeedbackOpen(!isFeedbackOpen);
 
   return (
     <div className="flex flex-col items-center min-h-screen max-w-[500px] w-full overflow-y-auto bg-[#f9f9f9]">
@@ -48,86 +47,51 @@ const RecordScript = ({ selectedDate }) => {
             AI 답변 보기
           </button>
 
-          {/* 사용자 스피치 스크립트 */}
-          <div
-            className="relative flex items-center w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-40"
-            onClick={toggleUserScript}
-          >
-            <img src={userImage} alt="User Script" className="w-10 h-10 mr-3" />
-            <div className="flex-1">
-              <h2 className="text-base font-semibold">내가 말한 스크립트</h2>
-              <p className="mt-1 text-xs text-grayscale-90">
-                간투어, 멈춘 시간 등이 포함됩니다.
-              </p>
-              {isUserScriptOpen && (
-                <p className="mt-2 text-grayscale-90 transition-all duration-300 ease-in-out max-h-[150px] overflow-hidden">
-                  {userScript}
-                </p>
-              )}
-            </div>
-            {/* 오디오 재생 버튼 */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                playAudio(userAudioUrl);
-              }}
-              className="absolute text-xl top-4 right-4"
-            >
-              <FaVolumeUp />
-            </button>
+          {/* 상단 메시지 */}
+          <div className="relative flex flex-col w-full max-w-md px-4 py-2 rounded-md bg-grayscale-10">
+            <p className="text-base font-paperlogy-title font-regular">
+              오늘 하루도 복숭아멘토 챌린지 성공!
+            </p>
           </div>
 
-          {/* AI 수정 스피치 스크립트 */}
-          <div
-            className="relative flex items-center w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-40"
-            onClick={toggleAiScript}
-          >
-            <img src={aiImage} alt="AI Script" className="w-10 h-10 mr-3" />
-            <div className="flex-1">
-              <h2 className="text-base font-semibold">AI가 수정한 스크립트</h2>
-              <p className="mt-1 text-xs text-grayscale-90">
-                내가 말한 스크립트를 AI가 직접 수정했어요.
-              </p>
-              {isAiScriptOpen && (
-                <p className="mt-2 text-grayscale-90 transition-all duration-300 ease-in-out max-h-[150px] overflow-hidden">
-                  {aiScript}
-                </p>
-              )}
-            </div>
-            {/* 오디오 재생 버튼 */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                playAudio(aiAudioUrl);
-              }}
-              className="absolute text-xl top-4 right-4"
-            >
-              <FaVolumeUp />
-            </button>
-          </div>
+          {/* 사용자 스피치 스크립트 */}
+          <ScriptBox
+            image={userImage}
+            title="내가 말한 스크립트"
+            description="간투어, 멈춘 시간 등이 포함됩니다."
+            content={userScript}
+            audioUrl={userAudioUrl}
+            isOpen={isUserScriptOpen}
+            toggleOpen={() => setIsUserScriptOpen(!isUserScriptOpen)}
+            playAudioWithGauge={playAudioWithGauge}
+            activeAudio={activeAudio}
+            duration={15}
+          />
+
+          {/* AI 수정 스크립트 */}
+          <ScriptBox
+            image={aiImage}
+            title="AI가 수정한 스크립트"
+            description="내가 말한 스크립트를 AI가 직접 수정했어요."
+            content={aiScript}
+            audioUrl={aiAudioUrl}
+            isOpen={isAiScriptOpen}
+            toggleOpen={() => setIsAiScriptOpen(!isAiScriptOpen)}
+            playAudioWithGauge={playAudioWithGauge}
+            activeAudio={activeAudio}
+            duration={15}
+          />
 
           {/* AI 피드백 */}
-          <div
-            className="relative flex items-center w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-40"
-            onClick={toggleFeedback}
-          >
-            <img
-              src={feedbackImage}
-              alt="Feedback"
-              className="w-10 h-10 mr-3"
-            />
-            <div className="flex-1">
-              <h2 className="text-base font-semibold">AI 피드백</h2>
-              <p className="mt-1 text-xs text-grayscale-90">
-                복숭아멘토의 상세한 피드백을 확인하세요!
-              </p>
-              {isFeedbackOpen && (
-                <p className="mt-2 text-grayscale-90 transition-all duration-300 ease-in-out max-h-[150px] overflow-hidden">
-                  {feedback}
-                </p>
-              )}
-            </div>
-          </div>
+          <ScriptBox
+            image={feedbackImage}
+            title="AI 피드백"
+            description="복숭아멘토의 상세한 피드백을 확인하세요!"
+            content={feedback}
+            audioUrl={null}
+            isOpen={isFeedbackOpen}
+            toggleOpen={() => setIsFeedbackOpen(!isFeedbackOpen)}
+          />
         </div>
         <NavBar />
       </div>
