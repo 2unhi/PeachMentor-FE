@@ -11,6 +11,7 @@ import Statistics from "./pages/Statistics";
 import GuestRecord from "./pages/GuestRecord";
 import RecordScript from "./pages/RecordScript";
 import "./App.css";
+import Feedback from "./pages/Feedback";
 
 const App = () => {
     return (
@@ -44,6 +45,9 @@ const App = () => {
 
                     {/* RecordScript */}
                     <Route path="/recordscript" element={<RecordScript/>}/>
+
+                    {/* 해당 날짜의 피드백 페이지 */}
+                    <Route path="/feedback" element={<Feedback/>}/>
                 </Routes>
             </BrowserRouter>
         </div>

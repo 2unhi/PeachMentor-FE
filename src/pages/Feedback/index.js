@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {FaStar} from "react-icons/fa";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import AISpeechPopup from "../Main/components/AISpeechPopup";
@@ -12,7 +11,7 @@ const userImage = "/images/record_user.png";
 const aiImage = "/images/record_ai.png";
 const feedbackImage = "/images/record_feedback.png";
 
-const RecordScript = ({selectedDate}) => {
+const Feedback = () => {
 
     const [userAudioUrl, setUserAudioUrl] = useState("");
     const [aiAudioUrl, setAiAudioUrl] = useState("");
@@ -27,9 +26,6 @@ const RecordScript = ({selectedDate}) => {
     const [isPopupOpen, setIsPopupOpen] = useState(false); // AI 답변 팝업 상태
     const [isFeedbackPopupOpen, setIsFeedbackPopupOpen] = useState(false); // 셀프 피드백 팝업 상태
     const [activeAudio, setActiveAudio] = useState(null);
-
-    // 별표 및 안내 문구 표시 상태 관리
-    const [showGuide, setShowGuide] = useState(true);
 
     useEffect(() => {
         const getFeedbackData = async () => {
@@ -74,15 +70,6 @@ const RecordScript = ({selectedDate}) => {
         getFeedbackData();
     }, []);
 
-    useEffect(() => {
-        // 5초 후에 강조 문구 제거
-        const timer = setTimeout(() => {
-            setShowGuide(false);
-        }, 5000);
-
-        return () => clearTimeout(timer);
-    }, []);
-
     const playAudioWithGauge = (audioUrl) => {
         const audio = new Audio(audioUrl);
         audio.play();
@@ -111,18 +98,8 @@ const RecordScript = ({selectedDate}) => {
                             onClick={() => setIsFeedbackPopupOpen(true)}
                             className="flex-1 py-4 text-lg font-semibold text-white rounded-full px-7 bg-primary-50 whitespace-nowrap"
                         >
-                            피드백 체크
+                            셀프 피드백
                         </button>
-
-                        {/* 해당 페이지에 들어왔을 때 5초간 보여지는 강조 문구 */}
-                        {showGuide && (
-                            <div
-                                className="absolute flex items-center space-x-1 left-[47%] transform -translate-x-[47%] -top-6 animate-bounce">
-                                <FaStar className="text-yellow-400"/>
-                                <p className="text-sm font-semibold">먼저 진행해주세요</p>
-                                <FaStar className="text-yellow-400"/>
-                            </div>
-                        )}
                     </div>
 
                     {/* 상단 메시지 */}
@@ -193,4 +170,4 @@ const RecordScript = ({selectedDate}) => {
     );
 };
 
-export default RecordScript;
+export default Feedback;
