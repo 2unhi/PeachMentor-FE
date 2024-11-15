@@ -2,26 +2,24 @@ import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
-import { useRecordContext } from "../../context/RecordContext";
 import AISpeechPopup from "../Main/components/AISpeechPopup";
 import ScriptBox from "./components/ScriptBox";
 import SelfFeedbackPopup from "./components/SelfFeedbackPopup";
+import {FaVolumeUp} from "react-icons/fa";
+import instance from "../../axios/TokenInterceptor";
+import {SPRING_API_URL} from "../../constants/api";
 
 const userImage = "/images/record_user.png";
 const aiImage = "/images/record_ai.png";
 const feedbackImage = "/images/record_feedback.png";
 
-// 스크립트 확인을 위한 임시 더미 데이터
 const RecordScript = ({ selectedDate }) => {
-  // feedback 관련 상태 전부 Context 관리
-  const {
-    userAudioUrl,
-    aiAudioUrl,
-    userScript,
-    aiScript,
-    feedback,
-    aiResponses,
-  } = useRecordContext();
+  
+  const [userAudioUrl, setUserAudioUrl] = useState("");
+  const [aiAudioUrl, setAiAudioUrl] = useState("");
+  const [userScript, setUserScript] = useState("");
+  const [aiScript, setAiScript] = useState("");
+  const [feedback, setFeedback] = useState("");
 
   const [isUserScriptOpen, setIsUserScriptOpen] = useState(false);
   const [isAiScriptOpen, setIsAiScriptOpen] = useState(false);
@@ -33,6 +31,31 @@ const RecordScript = ({ selectedDate }) => {
   // 별표 및 안내 문구 표시 상태 관리
   const [showGuide, setShowGuide] = useState(true);
 
+  useEffect(() => {
+        const getFeedbackData = async () => {
+            const answerId = localStorage.getItem("answerId");
+            try {
+                const response = await instance.get(
+                    `${SPRING_API_URL}/feedbacks?answerId=${answerId}`
+                );
+                if (response.data.isSuccess) {
+                    setUserAudioUrl(response.data.result.beforeAudioLink);
+                    setAiAudioUrl(response.data.result.afterAudioLink);
+                    setUserScript(response.data.result.beforeScript);
+                    setAiScript(response.data.result.afterScript);
+                    setFeedback(response.data.result.feedbackText);
+                    console.log("유저 답변에 대한 피드백 데이터 받아오기 성공");
+                } else {
+                    console.error("데이터 api 오류");
+                }
+            } catch (error) {
+                console.error("데이터 받아오기 실패");
+            }
+        };
+
+        getFeedbackData();
+    }, []);
+  
   useEffect(() => {
     // 5초 후에 강조 문구 제거
     const timer = setTimeout(() => {
