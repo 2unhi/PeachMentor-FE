@@ -1,23 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import Calendar from "react-calendar";
+import axios from "axios";
 import "react-calendar/dist/Calendar.css";
 import { FaCheckCircle } from "react-icons/fa";
 
 const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [markedDates] = useState([]); // 테스트 목적으로 빈 배열로 초기화
+  const [markedDates, setMarkedDates] = useState(new Array(31).fill(0)); // 답변 완료 여부를 저장
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
-  // 날짜 스타일을 적용하는 함수
+  const fetchCalendarData = async (year, month) => {
+    try {
+      const response = await axios.get(`/api/spring/calendars`, {
+        params: { year, month },
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      if (response.data.isSuccess) {
+        setMarkedDates(response.data.result);
+      } else {
+        console.error("데이터 가져오기 실패", response.data.message);
+      }
+    } catch (error) {
+      console.error("API 요청 오류", error);
+    }
+  };
+
+  useEffect(() => {
+    const year = selectedDate.getFullYear();
+    const month = selectedDate.getMonth() + 1;
+    fetchCalendarData(year, month);
+  }, [selectedDate]);
+
   const getTileClassName = ({ date, view }) => {
     if (view === "month") {
       const today = new Date();
-      // 오늘 날짜 스타일
+      // 오늘 날짜
       if (
         date.getDate() === today.getDate() &&
         date.getMonth() === today.getMonth() &&
@@ -25,8 +47,7 @@ const CalendarPage = () => {
       ) {
         return "bg-pink-100 text-pink-700 font-semibold";
       }
-
-      // 선택된 날짜 스타일
+      // 선택된 날짜
       if (
         date.getDate() === selectedDate.getDate() &&
         date.getMonth() === selectedDate.getMonth() &&
@@ -51,29 +72,23 @@ const CalendarPage = () => {
         <div className="w-full max-w-[400px] mt-4">
           <Calendar
             onChange={handleDateChange} // 날짜 선택 시 상태 업데이트
-            value={selectedDate} // 선택된 날짜를 상태로 관리
+            onActiveStartDateChange={({ activeStartDate }) => {
+              const year = activeStartDate.getFullYear();
+              const month = activeStartDate.getMonth() + 1;
+              fetchCalendarData(year, month);
+            }}
+            value={selectedDate}
             className="w-full calendar-custom"
             tileClassName={getTileClassName}
             formatDay={(locale, date) => date.getDate()}
             tileContent={({ date, view }) => {
-              if (view === "month") {
-                const isMarked = markedDates.includes(
-                  `${date.getFullYear()}-${(date.getMonth() + 1)
-                    .toString()
-                    .padStart(2, "0")}-${date
-                    .getDate()
-                    .toString()
-                    .padStart(2, "0")}`
-                );
-
+              if (view === "month" && markedDates[date.getDate() - 1] !== 0) {
                 return (
                   <div className="relative flex items-center justify-center px-4 py-2">
-                    {isMarked && (
-                      <FaCheckCircle
-                        className="absolute text-green-500 bottom-1 right-1"
-                        size={14}
-                      />
-                    )}
+                    <FaCheckCircle
+                      className="absolute text-green-500 bottom-1 right-1"
+                      size={14}
+                    />
                   </div>
                 );
               }
@@ -83,10 +98,26 @@ const CalendarPage = () => {
       </div>
       <NavBar />
 
-      {/* 요일 밑줄 제거 */}
+      {/* 리액트 캘린더 라이브러리 커스텀 */}
       <style jsx>{`
         .calendar-custom .react-calendar__month-view__weekdays__weekday abbr {
           text-decoration: none;
+        }
+
+        .calendar-custom .react-calendar__tile {
+          padding: 20px;
+          font-size: 1rem;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        /* 오늘 날짜 스타일 */
+        .calendar-custom .react-calendar__tile--now {
+          background: #ffdce5; /* 연분홍색 배경 */
+          color: #c2185b;
+          font-weight: bold;
         }
       `}</style>
     </div>
