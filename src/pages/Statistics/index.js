@@ -12,7 +12,7 @@ import {
 import { dummyStatisticsData } from "../../constants/statisticsData"; // 임시 더미 데이터
 
 const StatisticsPage = () => {
-  const [activeKey, setActiveKey] = useState("간투어"); // 기본적으로 "간투어" 그래프 표시
+  const [activeKey, setActiveKey] = useState("간투어"); // 디폴트는 추임새
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollRef = React.useRef(null);
 
@@ -123,7 +123,7 @@ const StatisticsPage = () => {
                 : "bg-grayscale-20 text-gray-700"
             }`}
           >
-            간투어
+            추임새
           </button>
           <button
             onClick={() => setActiveKey("단어 반복")}
@@ -133,7 +133,7 @@ const StatisticsPage = () => {
                 : "bg-grayscale-20 text-gray-700"
             }`}
           >
-            단어 반복
+            침묵시간
           </button>
         </div>
       </div>
