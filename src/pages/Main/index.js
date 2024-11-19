@@ -10,11 +10,11 @@ import Record from "./components/Record";
 import VolumeVisualizer from "./components/VolumeVisualizer";
 import AISpeechPopup from "./components/AISpeechPopup";
 import UserMemo from "./components/UserMemo";
-import { ClockLoader } from "react-spinners";
 import { SPRING_API_URL } from "../../constants/api";
 import instance from "../../axios/TokenInterceptor";
 import { useNavigate } from "react-router-dom";
 import SelfFeedback from "./components/SelfFeedback";
+import CustomAudioPlayer from "./components/CustomAudioPlayer";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -178,15 +178,10 @@ const Main = () => {
         {/* 분석 중일 때 로딩 상태 표시 */}
         {loading && (
           <div className="flex flex-col items-center justify-center mt-4">
-            {audioUrl && (
-              <audio controls src={audioUrl} className="mb-4">
-                Your browser does not support the audio element.
-              </audio>
-            )}
-            <p className="mb-10 text-lg font-semibold text-center font-paperlogy-title text-grayscale-100">
-              답변 내용을 분석 중입니다
+            <p className="mb-6 text-xl font-semibold text-center font-paperlogy-title text-grayscale-100">
+              답변 내용을 상세히 분석 중입니다
             </p>
-            <ClockLoader color="#4A90E2" loading={loading} size={60} />
+            {audioUrl && <CustomAudioPlayer audioUrl={audioUrl} />}
 
             {/* AI 답변 보기 및 피드백 받기 버튼 */}
             <div className="flex justify-center mt-10 space-x-4">
