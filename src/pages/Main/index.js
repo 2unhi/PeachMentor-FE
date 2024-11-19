@@ -141,7 +141,7 @@ const Main = () => {
                 {/* 1분 타이머 및 녹음 컴포넌트 */}
                 {showProgressTimer && (
                     <>
-                        <ProgressTimer duration={0.25} onTimeUp={handleStopRecording}/>
+                        <ProgressTimer duration={1} onTimeUp={handleStopRecording}/>
                         <Record
                             setAudioUrl={setAudioUrl}
                             isRecording={isRecording}
