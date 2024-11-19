@@ -178,7 +178,7 @@ const Main = () => {
 
         {/* 분석 중일 때 로딩 상태 표시 */}
         {loading && (
-          <div className="flex flex-col items-center justify-center mt-4 max-w-[90%]">
+          <div className="flex flex-col items-center justify-center max-w-[90%]">
             <p className="mb-3 text-xl font-semibold text-center font-paperlogy-title text-grayscale-100">
               답변 내용을 상세히 분석 중입니다
             </p>
