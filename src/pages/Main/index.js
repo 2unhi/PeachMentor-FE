@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Lottie from "react-lottie-player";
 import mainAnimations from "../../components/animations/mainAnimation.json";
+import analysisAnimation from "../../components/animations/analysisAnimation.json";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import Countdown from "./components/Countdown";
@@ -170,21 +171,31 @@ const Main = () => {
               loop
               animationData={mainAnimations}
               play
-              style={{ width: "100%", height: "auto" }}
+              style={{ width: "100%", maxWidth: "300px", height: "auto" }}
             />
           </div>
         )}
 
         {/* 분석 중일 때 로딩 상태 표시 */}
         {loading && (
-          <div className="flex flex-col items-center justify-center mt-4">
-            <p className="mb-6 text-xl font-semibold text-center font-paperlogy-title text-grayscale-100">
+          <div className="flex flex-col items-center justify-center mt-4 max-w-[90%]">
+            <p className="mb-3 text-xl font-semibold text-center font-paperlogy-title text-grayscale-100">
               답변 내용을 상세히 분석 중입니다
             </p>
             {audioUrl && <CustomAudioPlayer audioUrl={audioUrl} />}
 
+            {/* 분석 애니메이션 */}
+            <div className="flex items-center justify-center -mt-16 transform translate-x-[-12px]">
+              <Lottie
+                loop
+                animationData={analysisAnimation}
+                play
+                style={{ width: "70%", height: "auto" }}
+              />
+            </div>
+
             {/* AI 답변 보기 및 피드백 받기 버튼 */}
-            <div className="flex justify-center mt-10 space-x-4">
+            <div className="flex justify-center -mt-12 space-x-4">
               <button
                 onClick={handleShowAISpeechPopup}
                 className={`px-6 py-3 text-lg font-semibold text-white rounded-full ${
