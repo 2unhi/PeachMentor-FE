@@ -3,16 +3,27 @@ import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import {FaCheckCircle} from "react-icons/fa";
 import instance from "../../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../../constants/api";
+import {useNavigate} from "react-router-dom";
 
 const CalendarPage = () => {
+    const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [markedDates, setMarkedDates] = useState(new Array(31).fill(0)); // 답변 완료 여부를 저장
+    const [markedDates, setMarkedDates] = useState(new Array(32).fill(0));
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+
+        const answerId = markedDates[date.getDate() - 1];
+        if (answerId > 0) {
+            const newDate = new Date(date);
+            newDate.setDate(newDate.getDate() + 1);
+            const formattedDate = newDate.toISOString().split('T')[0];
+            navigate(`/feedback?answerId=${answerId}&date=${formattedDate}`);
+        } else {
+            console.log("해당 날짜에 스피치를 진행하지 않았습니다.");
+        }
     };
 
     const fetchCalendarData = async (year, month) => {
@@ -84,12 +95,22 @@ const CalendarPage = () => {
                         formatDay={(locale, date) => date.getDate()}
                         tileContent={({date, view}) => {
                             if (view === "month" && markedDates[date.getDate() - 1] !== 0) {
+                                // return (
+                                //     <div className="relative flex items-center justify-center px-4 py-2">
+                                //         <FaCheckCircle
+                                //             className="absolute text-green-500 bottom-1 right-1"
+                                //             size={14}
+                                //         />
+                                //     </div>
+                                // );
                                 return (
-                                    <div className="relative flex items-center justify-center px-4 py-2">
-                                        <FaCheckCircle
-                                            className="absolute text-green-500 bottom-1 right-1"
-                                            size={14}
-                                        />
+                                    <div className="relative flex items-center justify-center w-full h-full">
+                                        <div
+                                            className="absolute flex items-center justify-center w-8 h-8 rounded-full bg-red-500 text-white text-sm font-semibold"
+                                            style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}
+                                        >
+                                            {date.getDate()}
+                                        </div>
                                     </div>
                                 );
                             }
