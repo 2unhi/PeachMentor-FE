@@ -9,19 +9,19 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { dummyStatisticsData } from "../../constants/statisticsData";
+import { dummyStatisticsData } from "../../constants/statisticsData"; // 임시 더미 데이터
 
 const StatisticsPage = () => {
+  const [activeKey, setActiveKey] = useState("간투어"); // 기본적으로 "간투어" 그래프 표시
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollRef = React.useRef(null);
 
   // 페이지 렌더링 후 가장 최근 데이터가 보이도록 스크롤 조정
   useEffect(() => {
     if (scrollRef.current) {
-      // 오른쪽 끝으로 스크롤 이동
       scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
     }
-  }, []); // 빈 의존성 배열로 한 번만 실행
+  }, []);
 
   const handleDragScroll = (event) => {
     const isTouch = event.type === "touchstart" || event.type === "touchmove";
@@ -37,10 +37,10 @@ const StatisticsPage = () => {
     <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
       <Header />
       <div className="flex flex-col items-center flex-grow p-4">
-        <p className="px-4 py-2 my-6 text-base rounded-md text-grayscale-90 font-paperlogy-title bg-grayscale-10">
+        <p className="px-4 py-2 my-4 text-base rounded-md text-grayscale-90 font-paperlogy-title bg-grayscale-10">
           최근 기록을 확인하고 나의 말하기 습관을 분석해보세요.
         </p>
-        <p className="mb-6 text-sm text-grayscale-90 font-paperlogy-title">
+        <p className="mb-4 text-sm text-grayscale-90 font-paperlogy-title">
           좌우로 스크롤 하면 이전 기록을 한 번에 확인할 수 있어요
         </p>
 
@@ -56,7 +56,7 @@ const StatisticsPage = () => {
           onTouchEnd={() => setScrollPosition(0)}
         >
           {/* Y축 */}
-          <div className="w-[50px] h-[320px] sticky left-0 z-10 bg-white">
+          <div className="w-[50px] h-[300px] sticky left-0 z-10 bg-white">
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={dummyStatisticsData}>
                 <YAxis
@@ -79,7 +79,7 @@ const StatisticsPage = () => {
                 {/* 그래프 선 */}
                 <Line
                   type="monotone"
-                  dataKey="간투어"
+                  dataKey={activeKey}
                   stroke="#5D9CEC"
                   strokeWidth={3}
                   dot={{ fill: "#5D9CEC", r: 3 }}
@@ -93,10 +93,11 @@ const StatisticsPage = () => {
                   axisLine={{ stroke: "#ccc" }}
                   tickLine={false}
                   interval={0}
-                  padding={{ left: 10, right: 10 }}
+                  padding={{ left: 5, right: 5 }}
                 />
                 {/* 커스텀 Tooltip */}
                 <Tooltip
+                  cursor={false}
                   contentStyle={{
                     backgroundColor: "#D6EDFF",
                     borderRadius: "8px",
@@ -111,6 +112,29 @@ const StatisticsPage = () => {
               </LineChart>
             </ResponsiveContainer>
           </div>
+        </div>
+        {/* 분석 종류 버튼 */}
+        <div className="flex justify-center mt-4 space-x-4">
+          <button
+            onClick={() => setActiveKey("간투어")}
+            className={`px-7 py-3 text-base font-semibold rounded-full ${
+              activeKey === "간투어"
+                ? "bg-primary-50 text-white"
+                : "bg-grayscale-20 text-gray-700"
+            }`}
+          >
+            간투어
+          </button>
+          <button
+            onClick={() => setActiveKey("단어 반복")}
+            className={`px-7 py-3 text-base font-semibold rounded-full ${
+              activeKey === "단어 반복"
+                ? "bg-primary-50 text-white"
+                : "bg-grayscale-20 text-gray-700"
+            }`}
+          >
+            단어 반복
+          </button>
         </div>
       </div>
       <NavBar />
