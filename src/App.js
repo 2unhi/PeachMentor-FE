@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./pages/Login";
 import KakaoRedirectPage from "./components/oauth/KakaoRedirectPage";
 import NaverRedirectPage from "./components/oauth/NaverRedirectPage";
@@ -34,6 +34,7 @@ const App = () => {
                         element={<GoogleRedirectPage/>}
                     />
                     <Route path="/main" element={<Main/>}/>
+                    <Route path="/speech" element={<Speech/>}/>
 
                     {/* Header의 마이페이지 경로 */}
                     <Route path="/mypage" element={<MyPage/>}/>
