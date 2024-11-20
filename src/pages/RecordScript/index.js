@@ -82,22 +82,17 @@ const RecordScript = ({ selectedDate }) => {
     return () => clearTimeout(timer);
   }, []);
 
-<<<<<<< HEAD
-                {/* 상단 메시지 */}
-                <div
-                    className="relative flex flex-col w-full px-4 py-2 rounded-md bg-grayscale-10 items-center justify-center">
-                    <p className="text-base font-paperlogy-title font-regular">
-                        오늘 하루도 복숭아멘토 챌린지 성공!
-                    </p>
-                </div>
-=======
+  <div className="className=relative flex flex-col items-center justify-center w-full px-4 py-2 rounded-md bg-grayscale-10">
+    <p className="text-base font-paperlogy-title font-regular">
+      오늘 하루도 복숭아멘토 챌린지 성공!
+    </p>
+  </div>;
   const playAudioWithGauge = (audioUrl) => {
     const audio = new Audio(audioUrl);
     audio.play();
     setActiveAudio(audioUrl);
     audio.onended = () => setActiveAudio(null);
   };
->>>>>>> 698175d ([desgin] 캘린더 페이지에서 이동한 일자별 피드백 페이지 수정)
 
   return (
     <div className="relative flex flex-col w-full min-h-screen overflow-hidden">
@@ -136,7 +131,7 @@ const RecordScript = ({ selectedDate }) => {
         )}
 
         {/* 상단 메시지 */}
-        <div className="relative flex flex-col w-full px-4 py-2 rounded-md bg-grayscale-10">
+        <div className="relative flex flex-col items-center justify-center w-full px-4 py-2 rounded-md bg-grayscale-10">
           <p className="text-base font-paperlogy-title font-regular">
             오늘 하루도 복숭아멘토 챌린지 성공!
           </p>
