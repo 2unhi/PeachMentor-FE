@@ -16,7 +16,7 @@ const NavBar = () => {
   ];
 
   return (
-    <nav className="bottom-0 left-0 w-full max-w-[500px] mx-auto flex justify-around border-t border-slate-500 py-3">
+    <nav className="bottom-0 left-0 w-full max-w-[500px] mx-auto flex justify-around border-t border-slate-500 py-3 bg-white">
       {menuItems.map((item, index) => (
         <button
           key={index}
