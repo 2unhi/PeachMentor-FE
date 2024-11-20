@@ -112,7 +112,7 @@ const RecordScript = ({ selectedDate }) => {
             onClick={() => setIsFeedbackPopupOpen(true)}
             className="flex-1 py-3 text-lg font-semibold text-white rounded-full max-w-36 bg-primary-50"
           >
-            피드백 체크
+            셀프 피드백
           </button>
         </div>
 

@@ -39,10 +39,10 @@ const SelfFeedbackPopup = ({ isOpen, onClose }) => {
           className="absolute w-6 h-6 cursor-pointer top-2 right-2"
           onClick={onClose}
         />
-        <h2 className="mb-4 text-xl font-bold">셀프 피드백 체크</h2>
+        <h2 className="mb-4 text-xl font-bold">셀프 피드백</h2>
         <p className="text-sm">
-          지난번에 작성했던 셀프 피드백에 대해 어느정도
-          <br /> 개선이 되었는지 스스로 체크해주세요!
+          지난번 스피치보다 오늘의 답변은 어느정도
+          <br /> 개선이 되었는지 스스로 평가해주세요!
         </p>
 
         {/* 별점 평가 */}
