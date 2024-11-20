@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import instance from "../../axios/TokenInterceptor";
-import { SPRING_API_URL } from "../../constants/api";
-import { useNavigate } from "react-router-dom";
+import {SPRING_API_URL} from "../../constants/api";
+import {useNavigate} from "react-router-dom";
 
 const CalendarPage = () => {
     const navigate = useNavigate();
@@ -29,7 +29,7 @@ const CalendarPage = () => {
     const fetchCalendarData = async (year, month) => {
         try {
             const response = await instance.get(`${SPRING_API_URL}/calendars`, {
-                params: { year, month },
+                params: {year, month},
             });
             if (response.data.isSuccess) {
                 setMarkedDates(response.data.result);
@@ -48,7 +48,7 @@ const CalendarPage = () => {
         fetchCalendarData(year, month);
     }, [selectedDate]);
 
-    const getTileClassName = ({ date, view }) => {
+    const getTileClassName = ({date, view}) => {
         const today = new Date();
         const isWeekend = date.getDay() === 0 || date.getDay() === 6; // 주말 (0: 일요일, 6: 토요일)
 
@@ -78,7 +78,7 @@ const CalendarPage = () => {
 
     return (
         <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
-            <Header />
+            <Header/>
             <div className="flex flex-col items-center flex-grow p-4">
                 <div className="flex justify-center items-center w-full py-4 mb-[-4px]">
                     <h1 className="px-4 py-2 text-base font-bold rounded-lg text-grayscale-90 bg-grayscale-10">
@@ -86,10 +86,14 @@ const CalendarPage = () => {
                     </h1>
                 </div>
 
+                <div className="mt-4 text-center text-sm font-bold text-grayscale-70">
+                    스피치를 진행한 날은 <img src="/images/peach3.png" alt="복숭아 이미지" className="inline-block w-6 h-6"/> 로 확인할 수 있습니다!
+                </div>
+
                 <div className="w-full max-w-[400px] mt-4">
                     <Calendar
                         onChange={handleDateChange} // 날짜 선택 시 상태 업데이트
-                        onActiveStartDateChange={({ activeStartDate }) => {
+                        onActiveStartDateChange={({activeStartDate}) => {
                             const year = activeStartDate.getFullYear();
                             const month = activeStartDate.getMonth() + 1;
                             fetchCalendarData(year, month);
@@ -98,7 +102,7 @@ const CalendarPage = () => {
                         className="w-full calendar-custom"
                         tileClassName={getTileClassName}
                         formatDay={(locale, date) => date.getDate()}
-                        tileContent={({ date, view }) => {
+                        tileContent={({date, view}) => {
                             if (view === "month") {
                                 const isMarked = markedDates[date.getDate() - 1] !== 0; // markedDates 배열을 사용하여 날짜 확인
                                 if (isMarked) {
@@ -106,7 +110,7 @@ const CalendarPage = () => {
                                         <div className="relative flex items-center justify-center px-4 py-2">
                                             <div
                                                 className="tile-background"
-                                                style={{ backgroundImage: "url('/images/peach3.png')" }}
+                                                style={{backgroundImage: "url('/images/peach3.png')"}}
                                             ></div>
                                             <span className="date-number">{date.getDate()}</span>
                                         </div>
@@ -123,7 +127,7 @@ const CalendarPage = () => {
                     />
                 </div>
             </div>
-            <NavBar />
+            <NavBar/>
 
             {/* 리액트 캘린더 라이브러리 커스텀 */}
             <style jsx>{`
@@ -177,6 +181,7 @@ const CalendarPage = () => {
                 .calendar-custom .react-calendar__tile abbr {
                     display: none; /* 기본 날짜 숫자 숨기기 */
                 }
+
             `}</style>
         </div>
     );
