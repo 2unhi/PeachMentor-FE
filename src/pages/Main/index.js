@@ -18,6 +18,9 @@ const Main = () => {
     const feedback = selfFeedback === "null" ? null : selfFeedback;  // "null" 문자열을 null로 변환
     const isCompleteSpeech = searchParams.get("isCompleteSpeech") === "true";
 
+    console.log(selfFeedback);
+    console.log(feedback);
+
     const handleQuestionClick = async () => {
         try {
             const response = await instance.get(`${SPRING_API_URL}/questions`);
