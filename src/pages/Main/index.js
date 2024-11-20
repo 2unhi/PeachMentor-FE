@@ -8,7 +8,7 @@ import Countdown from "./components/Countdown";
 import Question from "./components/Question";
 import ProgressTimer from "./components/ProgressTimer";
 import Record from "./components/Record";
-import VolumeVisualizer from "./components/VolumeVisualizer";
+// import VolumeVisualizer from "./components/VolumeVisualizer";
 import AISpeechPopup from "./components/AISpeechPopup";
 import UserMemo from "./components/UserMemo";
 import { SPRING_API_URL } from "../../constants/api";
@@ -178,6 +178,11 @@ const Main = () => {
         {showProgressTimer && (
           <>
             <ProgressTimer duration={1} onTimeUp={handleStopRecording} />
+            <p className="mt-6 -mb-4 text-sm text-center font-paperlogy-title text-grayscale-90">
+              스피치가 끝났다면 아래 버튼을 클릭하여 종료할 수 있습니다
+              <br />
+              (위 질문에 대한 답변 시간은 최대 1분)
+            </p>
             <Record
               setAudioUrl={setAudioUrl}
               isRecording={isRecording}
@@ -191,7 +196,7 @@ const Main = () => {
               handleProgressTimeUp={handleProgressTimeUp}
               handleStopRecording={handleStopRecording}
             />
-            <VolumeVisualizer isRecording={isRecording} />
+            {/* <VolumeVisualizer isRecording={isRecording} /> */}
           </>
         )}
 
