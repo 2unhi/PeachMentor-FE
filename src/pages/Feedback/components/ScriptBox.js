@@ -14,6 +14,16 @@ const ScriptBox = ({
                        activeAudio,
                        duration,
                    }) => {
+
+    const formatContent = (text) => {
+        return text.split("\n").map((line, index) => (
+            <React.Fragment key={index}>
+                {line}
+                <br/>
+            </React.Fragment>
+        ));
+    };
+
     return (
         <div
             className="relative flex items-center w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-40"
@@ -25,7 +35,7 @@ const ScriptBox = ({
                 <p className="mt-1 text-xs text-grayscale-90">{description}</p>
                 {isOpen && (
                     <p className="mt-2 text-grayscale-90 transition-all duration-300 ease-in-out max-h-[150px] overflow-hidden">
-                        {content}
+                        {title === "AI 피드백" ? formatContent(content) : content}
                     </p>
                 )}
             </div>
