@@ -1,17 +1,23 @@
 import React, {useEffect, useState} from "react";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
-import AISpeechPopup from "../Main/components/AISpeechPopup";
+import AISpeechPopup from "./components/AISpeechPopup";
 import ScriptBox from "./components/ScriptBox";
 import SelfFeedbackPopup from "./components/SelfFeedbackPopup";
 import instance from "../../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../../constants/api";
+import {useLocation} from "react-router-dom";
 
 const userImage = "/images/record_user.png";
 const aiImage = "/images/record_ai.png";
 const feedbackImage = "/images/record_feedback.png";
 
 const Feedback = () => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const answerId = searchParams.get("answerId");
+    const date = searchParams.get("date");
+    const formattedDate = new Date(date).toISOString().split('T')[0];
 
     const [userAudioUrl, setUserAudioUrl] = useState("");
     const [aiAudioUrl, setAiAudioUrl] = useState("");
@@ -29,7 +35,6 @@ const Feedback = () => {
 
     useEffect(() => {
         const getFeedbackData = async () => {
-            const answerId = localStorage.getItem("answerId");
             try {
                 const response = await instance.get(
                     `${SPRING_API_URL}/feedbacks?answerId=${answerId}`
@@ -50,7 +55,6 @@ const Feedback = () => {
         };
 
         const getAiResponse = async () => {
-            const answerId = localStorage.getItem("answerId");
             try {
                 const response = await instance.get(
                     `${SPRING_API_URL}/insights?answerId=${answerId}`
@@ -68,7 +72,7 @@ const Feedback = () => {
 
         getAiResponse();
         getFeedbackData();
-    }, []);
+    }, [answerId]);
 
     const playAudioWithGauge = (audioUrl) => {
         const audio = new Audio(audioUrl);
@@ -103,9 +107,10 @@ const Feedback = () => {
                     </div>
 
                     {/* 상단 메시지 */}
-                    <div className="relative flex flex-col w-full max-w-md px-4 py-2 rounded-md bg-grayscale-10">
-                        <p className="text-base font-paperlogy-title font-regular">
-                            오늘 하루도 복숭아멘토 챌린지 성공!
+                    <div
+                        className="flex justify-center items-center w-full max-w-md px-4 py-2 rounded-md bg-grayscale-10">
+                        <p className="text-base font-paperlogy-title font-regular text-center">
+                            {formattedDate} 스피치 기록!
                         </p>
                     </div>
 

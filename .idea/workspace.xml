@@ -5,12 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5dda6d2-e76f-446c-9c6c-4e3d50c35be1" name="Changes" comment="fix: nginx swagger 경로 수정">
-      <change afterPath="$PROJECT_DIR$/src/pages/Feedback/components/ProgressGauge.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Feedback/components/ScriptBox.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Feedback/components/SelfFeedbackPopup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Feedback/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/peach.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/peach.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/peach2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/peach3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Loading.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Feedback/components/AISpeechPopup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Speech/components/AISpeechPopup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Speech/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/oauth/GoogleRedirectPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/oauth/GoogleRedirectPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/oauth/KakaoRedirectPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/oauth/KakaoRedirectPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/oauth/NaverRedirectPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/oauth/NaverRedirectPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Calendar/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Calendar/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Feedback/components/ScriptBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Feedback/components/ScriptBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Feedback/components/SelfFeedbackPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Feedback/components/SelfFeedbackPopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Feedback/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Feedback/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/GuestRecord/components/GuestRecord.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/GuestRecord/components/GuestRecord.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/GuestRecord/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/GuestRecord/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/components/AISpeechPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/RecordScript/components/AISpeechPopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/components/Countdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Speech/components/Countdown.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/components/ProgressTimer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Speech/components/ProgressTimer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/components/Question.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Speech/components/Question.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/components/Record.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Speech/components/Record.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/components/SelfFeedback.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Main/components/SelfFeedback.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/components/UserMemo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Speech/components/UserMemo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/components/VolumeVisualizer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/RecordScript/components/SelfFeedbackPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/RecordScript/components/SelfFeedbackPopup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/RecordScript/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/RecordScript/index.js" afterDir="false" />
     </list>
@@ -45,9 +69,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "design/calendarPage",
+    "git-widget-placeholder": "Merging design/1stQA",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/hyun/Documents/FrontEnd/src/pages/Feedback",
+    "last_opened_file_path": "/Users/hyun/Documents/FrontEnd/public/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -64,8 +88,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/pages/Feedback" />
-      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/public/images" />
+      <recent name="$PROJECT_DIR$/src/pages/RecordScript/components" />
+      <recent name="$PROJECT_DIR$/src/pages/Feedback/components" />
+      <recent name="$PROJECT_DIR$/src/pages/Speech" />
+      <recent name="$PROJECT_DIR$/src/pages/Speech/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/pages/Main/components" />
@@ -157,6 +184,9 @@
       <workItem from="1731052515824" duration="4000" />
       <workItem from="1731063497478" duration="4289000" />
       <workItem from="1731469978651" duration="1166000" />
+      <workItem from="1732017101583" duration="17956000" />
+      <workItem from="1732072863327" duration="4801000" />
+      <workItem from="1732084899125" duration="11665000" />
     </task>
     <task id="LOCAL-00001" summary="fix: nginx swagger 경로 추가">
       <option name="closed" value="true" />
