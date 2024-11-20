@@ -2,6 +2,8 @@ import React from "react";
 
 const SelfFeedback = ({selfFeedback}) => {
 
+    console.log(selfFeedback);
+
     const formatContent = (text) => {
         return text.split("\n").map((line, index) => (
             <React.Fragment key={index}>
