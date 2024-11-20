@@ -58,7 +58,7 @@ const ScriptBox = ({
 
   return (
     <div
-      className="relative flex items-center w-full max-w-md p-4 bg-white border rounded shadow cursor-pointer border-grayscale-40 hover:shadow-md"
+      className="relative flex flex-col w-full p-4 transition-all bg-white border rounded-lg shadow cursor-pointer border-grayscale-40 hover:shadow-md"
       onClick={toggleOpen}
     >
       {/* 상단 이미지, 텍스트, 오디오 컨트롤 */}

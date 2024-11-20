@@ -82,11 +82,11 @@ const Feedback = () => {
   };
 
   return (
-    <div className="flex flex-col items-center max-w-[500px] w-full h-screen bg-white pt-24">
+    <div className="relative flex flex-col w-full min-h-screen overflow-hidden">
       <div className="fixed top-0 z-10 w-full">
         <Header />
       </div>
-      <div className="flex-1 w-full max-w-[500px] mx-auto p-4">
+      <div className="flex-1 w-full max-w-[500px] mx-auto pt-24 pb-24 overflow-y-auto px-4 space-y-6 bg-white">
         <div className="relative flex flex-col items-center space-y-6">
           <div className="flex mb-4 space-x-8">
             {/* AI 답변 보기 버튼 */}
