@@ -15,7 +15,7 @@ const Main = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const selfFeedback = searchParams.get("selfFeedback");
-    const feedback = selfFeedback === "null" ? null : selfFeedback.replace(/\\n/g, "\n"); // 개행 복원, "null" 문자열을 null로 변환
+    const feedback = selfFeedback === "null" ? null : selfFeedback; // "null" 문자열을 null로 변환
     const isCompleteSpeech = searchParams.get("isCompleteSpeech") === "true";
 
     const handleQuestionClick = async () => {
