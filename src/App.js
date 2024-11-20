@@ -7,7 +7,7 @@ import GoogleRedirectPage from "./components/oauth/GoogleRedirectPage";
 import Main from "./pages/Main";
 import MyPage from "./pages/MyPage";
 import Calendar from "./pages/Calendar";
-import Statistics from "/pages/Statistics";
+import Statistics from "./pages/Statistics";
 import GuestRecord from "./pages/GuestRecord";
 import RecordScript from "./pages/RecordScript";
 import "./App.css";
