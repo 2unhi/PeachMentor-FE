@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import SelfFeedback from "./components/SelfFeedback";
 import CustomAudioPlayer from "./components/CustomAudioPlayer";
 
+import "./style/button.css";
+
 const Main = () => {
   const navigate = useNavigate();
 
@@ -29,6 +31,7 @@ const Main = () => {
   const [insightComplete, setInsightComplete] = useState(false);
   const [analysisComplete, setAnalysisComplete] = useState(false);
   const [showSelfFeedback, setShowSelfFeedback] = useState(false);
+  const [showGuideMessage, setShowGuideMessage] = useState(true); // 메인 홈 시작 안내문
 
   const [answerId, setAnswerId] = useState("");
   const [audioUrl, setAudioUrl] = useState(null);
@@ -86,6 +89,7 @@ const Main = () => {
     }
 
     setShowCountdown(true);
+    setShowGuideMessage(false); // 오늘의 질문 버튼 클릭 후 안내문 숨김
   };
 
   const handleCountdownComplete = () => {
@@ -125,12 +129,39 @@ const Main = () => {
 
         {/* "오늘의 질문" 버튼 */}
         {!showAnalysisMessage && !showProgressTimer && !showCountdown && (
-          <button
-            onClick={handleQuestionClick}
-            className="px-6 py-4 mt-6 text-lg text-white rounded bg-primary-50 font-paperlogy-title"
-          >
-            오늘의 질문
-          </button>
+          <>
+            <button onClick={handleQuestionClick} className="button">
+              <span className="text-lg button__text font-paperlogy-title">
+                오늘의 질문
+              </span>
+              <img
+                src="/images/button/cone.png"
+                alt=""
+                className="button__cone"
+              />
+              <img
+                src="/images/button/torus.png"
+                alt=""
+                className="button__torus"
+              />
+              <img
+                src="/images/button/icosahedron.png"
+                alt=""
+                className="button__icosahedron"
+              />
+              <img
+                src="/images/button/sphere.png"
+                alt=""
+                className="button__sphere"
+              />
+            </button>
+            {/* 버튼 클릭 후 진행 안내문 */}
+            {showGuideMessage && (
+              <p className="mt-8 text-sm font-paperlogy-title text-grayscale-90">
+                위 버튼 클릭 후 10초 뒤 스피치가 시작됩니다!
+              </p>
+            )}
+          </>
         )}
 
         {/* 질문 내용 표시 */}
@@ -166,12 +197,12 @@ const Main = () => {
 
         {/* 메인 시작 페이지 돋보기 애니메이션 */}
         {!showAnalysisMessage && !showProgressTimer && !showCountdown && (
-          <div className="w-3/4 mt-14">
+          <div className="w-3/4 mt-8">
             <Lottie
               loop
               animationData={mainAnimations}
               play
-              style={{ width: "100%", maxWidth: "300px", height: "auto" }}
+              style={{ width: "100%", height: "auto" }}
             />
           </div>
         )}
