@@ -95,11 +95,6 @@ const Speech = () => {
         {/* 분석 중일 때 로딩 상태 표시 */}
         {loading && (
           <div className="flex flex-col items-center justify-center w-full">
-            <p className="mb-3 text-base font-medium text-center font-paperlogy-title text-grayscale-90">
-              방금 말한 내용을 다시 들어보세요!
-            </p>
-            {audioUrl && <CustomAudioPlayer audioUrl={audioUrl} />}
-
             {/* 애니메이션 */}
             <Loading />
 
@@ -129,6 +124,8 @@ const Speech = () => {
                 피드백 받기
               </button>
             </div>
+
+            {audioUrl && <CustomAudioPlayer audioUrl={audioUrl} />}
 
             {/* 사용자 개인 평가 메모장 */}
             <UserMemo />

@@ -47,7 +47,7 @@ const CustomAudioPlayer = ({ audioUrl }) => {
     return `${minutes}:${seconds}`;
   };
   return (
-    <div className="flex flex-col items-center w-[80%] max-w-md px-4 py-3 space-y-2 rounded-lg bg-grayscale-05">
+    <div className="flex flex-col items-center w-[75%] max-w-md px-4 py-3 space-y-2 rounded-lg bg-grayscale-05 mt-6">
       <audio
         ref={audioRef}
         src={audioUrl}

@@ -34,7 +34,7 @@ const UserMemo = () => {
   };
 
   return (
-    <div className="w-[80%] p-3 mt-6 rounded-lg shadow bg-primary-00">
+    <div className="w-[75%] p-3 mt-6 rounded-lg bg-primary-00">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-base font-bold">나만의 메모장</h3>
         <button
@@ -48,19 +48,19 @@ const UserMemo = () => {
         className="w-full h-24 p-2 text-sm border rounded resize-none border-grayscale-40"
         value={memo}
         onChange={(e) => setMemo(e.target.value)}
-        placeholder="상단 오디오 버튼을 통해 녹음 내용을 들어보며 스스로 평가해보세요!"
+        placeholder="오디오 버튼을 통해 녹음 내용을 다시 들어보며 스스로 평가해보세요!"
       />
       {/* 저장 시 나오는 팝업 */}
       {showPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative max-w-sm min-h-[80px] p-6 bg-white rounded-lg shadow-lg">
+          <div className="relative max-w-sm p-6 bg-white rounded-lg shadow-lg">
             <img
               src="/webp/close_button_x.webp"
               alt="닫기"
               className="absolute w-6 h-6 cursor-pointer top-2 right-2"
               onClick={() => setShowPopup(false)}
             />
-            <p className="text-lg font-bold text-center font-paperlogy-title text-primary-50">
+            <p className="text-base font-bold text-center font-paperlogy-title text-primary-50">
               셀프 피드백 저장이 완료되었습니다!
             </p>
           </div>
