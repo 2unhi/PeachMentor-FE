@@ -71,10 +71,10 @@ const StatisticsPage = () => {
 
           {/* 그래프 */}
           <div className="flex-grow h-full">
-            <ResponsiveContainer width={1500} height={300}>
+            <ResponsiveContainer width={700} height={300}>
               <LineChart
                 data={dummyStatisticsData}
-                margin={{ top: 20, right: 10, left: 10, bottom: 10 }}
+                margin={{ top: 20, right: 20, left: 20, bottom: 10 }}
               >
                 {/* 그래프 선 */}
                 <Line
@@ -93,7 +93,7 @@ const StatisticsPage = () => {
                   axisLine={{ stroke: "#ccc" }}
                   tickLine={false}
                   interval={0}
-                  padding={{ left: 5, right: 5 }}
+                  padding={{ left: 0, right: 0 }}
                 />
                 {/* 커스텀 Tooltip */}
                 <Tooltip

@@ -71,7 +71,7 @@ const UserMemo = ({ audioUrl }) => {
 
   return (
     <>
-      <div className="w-[75%] mt-8 p-3 rounded-lg bg-primary-00 flex flex-col space-y-2">
+      <div className="w-[80%] mt-10 p-3 rounded-lg bg-primary-00 flex flex-col space-y-2">
         <p className="text-lg font-bold text-center font-paperlogy-title">
           나만의 메모장
         </p>

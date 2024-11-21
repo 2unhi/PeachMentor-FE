@@ -98,10 +98,10 @@ const Speech = () => {
             <Loading />
 
             {/* AI 답변 보기 및 피드백 받기 버튼 */}
-            <div className="flex justify-center -mt-12 space-x-4">
+            <div className="flex justify-center -mt-10">
               <button
                 onClick={handleShowAISpeechPopup}
-                className={`px-5 py-3 text-lg font-semibold text-white rounded-full ${
+                className={`px-5 py-3 text-lg font-semibold text-white rounded-full mr-6 ${
                   insightComplete
                     ? "bg-primary-50"
                     : "bg-primary-10 cursor-not-allowed"
