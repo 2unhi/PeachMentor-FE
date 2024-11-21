@@ -47,7 +47,7 @@ const CustomAudioPlayer = ({ audioUrl }) => {
     return `${minutes}:${seconds}`;
   };
   return (
-    <div className="flex flex-col items-center w-full max-w-md px-4 py-3 space-y-2 rounded-lg bg-grayscale-05">
+    <div className="flex flex-col items-center w-[80%] max-w-md px-4 py-3 space-y-2 rounded-lg bg-grayscale-05">
       <audio
         ref={audioRef}
         src={audioUrl}
@@ -61,23 +61,23 @@ const CustomAudioPlayer = ({ audioUrl }) => {
         {/* 5초 되감기 버튼 */}
         <button
           onClick={() => handleSkip(-5)}
-          className="text-gray-600 hover:text-gray-800"
+          className="flex items-center justify-center w-12 h-12 text-gray-600 rounded-full hover:text-gray-800 focus:outline-none"
         >
-          <FaUndo size={24} />
+          <FaUndo size={20} />
         </button>
         {/* 재생/일시정지 버튼 */}
         <button
           onClick={togglePlayPause}
-          className="p-3 text-white rounded-full shadow-md bg-primary-50 focus:outline-none"
+          className="flex items-center justify-center w-12 h-12 text-white rounded-full shadow-md bg-primary-50 focus:outline-none"
         >
-          {isPlaying ? <FaPause size={20} /> : <FaPlay size={20} />}
+          {isPlaying ? <FaPause size={24} /> : <FaPlay size={24} />}
         </button>
         {/* 5초 건너뛰기 버튼 */}
         <button
           onClick={() => handleSkip(5)}
-          className="text-gray-600 hover:text-gray-800"
+          className="flex items-center justify-center w-12 h-12 text-gray-600 rounded-full hover:text-gray-800 focus:outline-none"
         >
-          <FaRedo size={24} />
+          <FaRedo size={20} />
         </button>
       </div>
       {/* 전체 진행바 */}

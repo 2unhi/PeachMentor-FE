@@ -1,26 +1,15 @@
-import React from 'react'
-import {PacmanLoader} from 'react-spinners';
+import React from "react";
+import { PacmanLoader } from "react-spinners";
 
 const Loading = () => {
-    return (
-        <div>
-            <PacmanLoader
-                color="#1468dd"
-                cssOverride={{}}
-                loading
-                margin={2}
-                size={25}
-                speedMultiplier={1}
-            />
-            <div style={{
-                padding: '20px',
-                color: '#1468dd',
-                fontWeight: '700',
-            }}>
-                <h1> 분석 중...</h1>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="flex flex-col items-center justify-center py-8 space-y-5">
+      <PacmanLoader color="#1468dd" loading size={25} speedMultiplier={1} />
+      <div className="pb-10 text-lg font-bold text-primary-70 font-paperlogy-title">
+        <p>분석을 진행하고 있어요</p>
+      </div>
+    </div>
+  );
+};
 
 export default Loading;

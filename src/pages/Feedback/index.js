@@ -116,8 +116,8 @@ const Feedback = () => {
           {/* 사용자 스피치 스크립트 */}
           <ScriptBox
             image={userImage}
-            title="내가 말한 스크립트"
-            description="간투어, 멈춘 시간 등이 포함됩니다."
+            title="나의 스크립트"
+            description="추임새, 침묵시간 등이 포함됩니다."
             content={userScript}
             audioUrl={userAudioUrl}
             isOpen={isUserScriptOpen}
@@ -131,7 +131,7 @@ const Feedback = () => {
           <ScriptBox
             image={aiImage}
             title="AI가 수정한 스크립트"
-            description="내가 말한 스크립트를 AI가 직접 수정했어요."
+            description="위 스크립트를 AI가 직접 수정했어요."
             content={aiScript}
             audioUrl={aiAudioUrl}
             isOpen={isAiScriptOpen}

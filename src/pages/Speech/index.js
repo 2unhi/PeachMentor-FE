@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Lottie from "react-lottie-player";
 import Header from "../../components/Header";
 import Countdown from "./components/Countdown";
 import Question from "./components/Question";
@@ -8,7 +7,7 @@ import Record from "./components/Record";
 import AISpeechPopup from "./components/AISpeechPopup";
 import UserMemo from "./components/UserMemo";
 import CustomAudioPlayer from "./components/CustomAudioPlayer";
-import analysisAnimation from "../../components/animations/analysisAnimation.json";
+import Loading from "./components/Loading";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Speech = () => {
@@ -95,21 +94,14 @@ const Speech = () => {
 
         {/* 분석 중일 때 로딩 상태 표시 */}
         {loading && (
-          <div className="flex flex-col items-center justify-center max-w-[90%]">
-            <p className="mb-3 text-xl font-semibold text-center font-paperlogy-title text-grayscale-100">
-              답변 내용을 상세히 분석 중입니다
+          <div className="flex flex-col items-center justify-center w-full">
+            <p className="mb-3 text-base font-medium text-center font-paperlogy-title text-grayscale-90">
+              방금 말한 내용을 다시 들어보세요!
             </p>
             {audioUrl && <CustomAudioPlayer audioUrl={audioUrl} />}
 
-            {/* 분석 애니메이션 */}
-            <div className="flex items-center justify-center -mt-16 transform translate-x-[-12px]">
-              <Lottie
-                loop
-                animationData={analysisAnimation}
-                play
-                style={{ width: "70%", height: "auto" }}
-              />
-            </div>
+            {/* 애니메이션 */}
+            <Loading />
 
             {/* AI 답변 보기 및 피드백 받기 버튼 */}
             <div className="flex justify-center -mt-12 space-x-4">
