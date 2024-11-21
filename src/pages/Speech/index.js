@@ -5,9 +5,8 @@ import Question from "./components/Question";
 import ProgressTimer from "./components/ProgressTimer";
 import Record from "./components/Record";
 import AISpeechPopup from "./components/AISpeechPopup";
-import UserMemo from "./components/UserMemo";
-import CustomAudioPlayer from "./components/CustomAudioPlayer";
 import Loading from "./components/Loading";
+import UserMemo from "./components/UserMemo";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Speech = () => {
@@ -95,14 +94,14 @@ const Speech = () => {
         {/* 분석 중일 때 로딩 상태 표시 */}
         {loading && (
           <div className="flex flex-col items-center justify-center w-full">
-            {/* 애니메이션 */}
+            {/* 분석 중 로딩 애니메이션 */}
             <Loading />
 
             {/* AI 답변 보기 및 피드백 받기 버튼 */}
             <div className="flex justify-center -mt-12 space-x-4">
               <button
                 onClick={handleShowAISpeechPopup}
-                className={`px-6 py-3 text-lg font-semibold text-white rounded-full ${
+                className={`px-5 py-3 text-lg font-semibold text-white rounded-full ${
                   insightComplete
                     ? "bg-primary-50"
                     : "bg-primary-10 cursor-not-allowed"
@@ -114,7 +113,7 @@ const Speech = () => {
               {/* 분석이 완료되어야 활성화되는 "피드백 받기" 버튼 */}
               <button
                 onClick={() => navigate("/recordscript")}
-                className={`px-6 py-3 text-lg font-semibold text-white rounded-full ${
+                className={`px-5 py-3 text-lg font-semibold text-white rounded-full ${
                   analysisComplete
                     ? "bg-primary-50"
                     : "bg-primary-10 cursor-not-allowed"
@@ -125,10 +124,8 @@ const Speech = () => {
               </button>
             </div>
 
-            {audioUrl && <CustomAudioPlayer audioUrl={audioUrl} />}
-
             {/* 사용자 개인 평가 메모장 */}
-            <UserMemo />
+            <UserMemo audioUrl={audioUrl} />
           </div>
         )}
 
