@@ -3,12 +3,11 @@ import {FaStar} from "react-icons/fa";
 import instance from "../../../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../../../constants/api";
 
-const SelfFeedbackPopup = ({isOpen, onClose}) => {
+const SelfFeedbackPopup = ({isOpen, onClose, answerId}) => {
     const [rating, setRating] = useState(0);
 
     useEffect(() => {
         const sendSelfFeedbackEvaluation = async () => {
-            const answerId = localStorage.getItem("answerId");
             try {
                 const response = await instance.get(`${SPRING_API_URL}/answers/evaluations?answerId=${answerId}`);
                 if (response.data.isSuccess) {
@@ -23,7 +22,7 @@ const SelfFeedbackPopup = ({isOpen, onClose}) => {
         }
 
         sendSelfFeedbackEvaluation();
-    }, []);
+    }, [answerId]);
 
     if (!isOpen) return null;
 
