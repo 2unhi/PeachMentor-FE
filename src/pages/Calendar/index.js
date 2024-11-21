@@ -80,7 +80,7 @@ const CalendarPage = () => {
     <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
       <Header />
       <div className="flex flex-col items-center flex-grow p-4">
-        <div className="flex justify-center items-center w-full py-4 mb-[-4px]">
+        <div className="flex justify-center items-center w-full pt-4 mb-[-4px]">
           <h1 className="px-4 py-2 text-base font-bold rounded-lg text-grayscale-90 bg-grayscale-10">
             날짜를 선택하면 당일 피드백을 확인할 수 있어요
           </h1>
@@ -93,7 +93,7 @@ const CalendarPage = () => {
             alt="복숭아 이미지"
             className="inline-block w-6 h-6"
           />{" "}
-          로 확인할 수 있습니다!
+          로 표시됩니다!
         </div>
 
         <div className="w-full max-w-[400px] mt-4">
@@ -142,9 +142,9 @@ const CalendarPage = () => {
         }
 
         .calendar-custom .react-calendar__tile {
-          padding: 20px;
+          padding: 16px;
           font-size: 1rem;
-          height: 50px;
+          height: 48px;
           display: flex;
           align-items: center;
           justify-content: center;
