@@ -12,7 +12,7 @@ import {
 import { dummyStatisticsData } from "../../constants/statisticsData"; // 임시 더미 데이터
 
 const StatisticsPage = () => {
-  const [activeKey, setActiveKey] = useState("간투어"); // 디폴트는 추임새
+  const [activeKey, setActiveKey] = useState("추임새"); // 디폴트는 추임새
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollRef = React.useRef(null);
 
@@ -71,10 +71,10 @@ const StatisticsPage = () => {
 
           {/* 그래프 */}
           <div className="flex-grow h-full">
-            <ResponsiveContainer width={1500} height={300}>
+            <ResponsiveContainer width={700} height={300}>
               <LineChart
                 data={dummyStatisticsData}
-                margin={{ top: 20, right: 10, left: 10, bottom: 10 }}
+                margin={{ top: 20, right: 20, left: 20, bottom: 10 }}
               >
                 {/* 그래프 선 */}
                 <Line
@@ -93,7 +93,7 @@ const StatisticsPage = () => {
                   axisLine={{ stroke: "#ccc" }}
                   tickLine={false}
                   interval={0}
-                  padding={{ left: 5, right: 5 }}
+                  padding={{ left: 0, right: 0 }}
                 />
                 {/* 커스텀 Tooltip */}
                 <Tooltip
@@ -116,9 +116,9 @@ const StatisticsPage = () => {
         {/* 분석 종류 버튼 */}
         <div className="flex justify-center mt-4 space-x-4">
           <button
-            onClick={() => setActiveKey("간투어")}
+            onClick={() => setActiveKey("추임새")}
             className={`px-7 py-3 text-base font-semibold rounded-full ${
-              activeKey === "간투어"
+              activeKey === "추임새"
                 ? "bg-primary-50 text-white"
                 : "bg-grayscale-20 text-gray-700"
             }`}
@@ -126,9 +126,9 @@ const StatisticsPage = () => {
             추임새
           </button>
           <button
-            onClick={() => setActiveKey("단어 반복")}
+            onClick={() => setActiveKey("침묵시간")}
             className={`px-7 py-3 text-base font-semibold rounded-full ${
-              activeKey === "단어 반복"
+              activeKey === "침묵시간"
                 ? "bg-primary-50 text-white"
                 : "bg-grayscale-20 text-gray-700"
             }`}

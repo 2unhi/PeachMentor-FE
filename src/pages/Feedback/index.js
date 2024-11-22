@@ -17,7 +17,7 @@ const Feedback = () => {
     const searchParams = new URLSearchParams(location.search);
     const answerId = searchParams.get("answerId");
     const date = searchParams.get("date");
-    const formattedDate = new Date(date).toISOString().split('T')[0];
+    const formattedDate = new Date(date).toISOString().split("T")[0];
 
     const [userAudioUrl, setUserAudioUrl] = useState("");
     const [aiAudioUrl, setAiAudioUrl] = useState("");
@@ -82,11 +82,11 @@ const Feedback = () => {
     };
 
     return (
-        <div className="flex flex-col items-center max-w-[500px] w-full h-screen bg-white pt-24">
+        <div className="relative flex flex-col w-full min-h-screen overflow-hidden">
             <div className="fixed top-0 z-10 w-full">
                 <Header/>
             </div>
-            <div className="flex-1 w-full max-w-[500px] mx-auto p-4">
+            <div className="flex-1 w-full max-w-[500px] mx-auto pt-24 pb-24 overflow-y-auto px-4 space-y-6 bg-white">
                 <div className="relative flex flex-col items-center space-y-6">
                     <div className="flex mb-4 space-x-8">
                         {/* AI 답변 보기 버튼 */}
@@ -108,8 +108,8 @@ const Feedback = () => {
 
                     {/* 상단 메시지 */}
                     <div
-                        className="flex justify-center items-center w-full max-w-md px-4 py-2 rounded-md bg-grayscale-10">
-                        <p className="text-base font-paperlogy-title font-regular text-center">
+                        className="flex items-center justify-center w-full max-w-md px-4 py-2 rounded-md bg-grayscale-10">
+                        <p className="text-base text-center font-paperlogy-title font-regular">
                             {formattedDate} 스피치 기록!
                         </p>
                     </div>
@@ -117,8 +117,8 @@ const Feedback = () => {
                     {/* 사용자 스피치 스크립트 */}
                     <ScriptBox
                         image={userImage}
-                        title="내가 말한 스크립트"
-                        description="간투어, 멈춘 시간 등이 포함됩니다."
+                        title="나의 스크립트"
+                        description="추임새, 침묵시간 등이 포함됩니다."
                         content={userScript}
                         audioUrl={userAudioUrl}
                         isOpen={isUserScriptOpen}
@@ -132,7 +132,7 @@ const Feedback = () => {
                     <ScriptBox
                         image={aiImage}
                         title="AI가 수정한 스크립트"
-                        description="내가 말한 스크립트를 AI가 직접 수정했어요."
+                        description="위 스크립트를 AI가 직접 수정했어요."
                         content={aiScript}
                         audioUrl={aiAudioUrl}
                         isOpen={isAiScriptOpen}
@@ -155,7 +155,7 @@ const Feedback = () => {
                 </div>
             </div>
 
-            <div className="fixed bottom-0 z-10 w-full max-w-[500px] bg-white">
+            <div className="fixed bottom-0 z-20 w-full">
                 <NavBar/>
             </div>
 
@@ -170,6 +170,7 @@ const Feedback = () => {
             <SelfFeedbackPopup
                 isOpen={isFeedbackPopupOpen}
                 onClose={() => setIsFeedbackPopupOpen(false)}
+                answerId={answerId}
             />
         </div>
     );

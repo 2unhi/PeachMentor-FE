@@ -22,7 +22,7 @@ const AISpeechPopup = ({ isOpen, onClose, response }) => {
                   답변 {index + 1}
                 </h3>
                 {/* AI의 답변 내용 */}
-                <p className="text-gray-700">{item}</p>
+                <p className="text-justify text-grayscale-90">{item}</p>
               </div>
             ))
           ) : (
