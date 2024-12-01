@@ -35,8 +35,9 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Node.js.index.js.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;design/1stQA&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/error&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/hyun/Documents/FrontEnd/src/pages/RecordScript/components&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -155,6 +156,11 @@
       <workItem from="1732017101583" duration="17956000" />
       <workItem from="1732072863327" duration="4801000" />
       <workItem from="1732084899125" duration="11665000" />
+      <workItem from="1732443088271" duration="599000" />
+      <workItem from="1732546370442" duration="5846000" />
+      <workItem from="1732800334474" duration="3847000" />
+      <workItem from="1732949692757" duration="13935000" />
+      <workItem from="1732983970529" duration="12312000" />
     </task>
     <task id="LOCAL-00001" summary="fix: nginx swagger 경로 추가">
       <option name="closed" value="true" />
