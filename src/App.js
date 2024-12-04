@@ -14,48 +14,51 @@ import "./App.css";
 import Feedback from "./pages/Feedback";
 import Speech from "./pages/Speech";
 import Loading from "./components/Loading";
+import {AnalysisProvider} from "./context/AnalysisContext";
 
 const App = () => {
     return (
         <div
             className="App bg-[#f9f9f9] min-h-screen flex flex-col justify-center items-center">
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Login/>}/>
-                    <Route
-                        path="/login/oauth2/code/kakao"
-                        element={<KakaoRedirectPage/>}
-                    />
-                    <Route
-                        path="/login/oauth2/code/naver"
-                        element={<NaverRedirectPage/>}
-                    />
-                    <Route
-                        path="/login/oauth2/code/google"
-                        element={<GoogleRedirectPage/>}
-                    />
-                    <Route path="/main" element={<Main/>}/>
-                    <Route path="/speech" element={<Speech/>}/>
+            <AnalysisProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Login/>}/>
+                        <Route
+                            path="/login/oauth2/code/kakao"
+                            element={<KakaoRedirectPage/>}
+                        />
+                        <Route
+                            path="/login/oauth2/code/naver"
+                            element={<NaverRedirectPage/>}
+                        />
+                        <Route
+                            path="/login/oauth2/code/google"
+                            element={<GoogleRedirectPage/>}
+                        />
+                        <Route path="/main" element={<Main/>}/>
+                        <Route path="/speech" element={<Speech/>}/>
 
-                    {/* Header의 마이페이지 경로 */}
-                    <Route path="/mypage" element={<MyPage/>}/>
+                        {/* Header의 마이페이지 경로 */}
+                        <Route path="/mypage" element={<MyPage/>}/>
 
-                    {/* NavBar의 탭 연결 페이지 경로 */}
-                    <Route path="/calendar" element={<Calendar/>}/>
-                    <Route path="/statistics" element={<Statistics/>}/>
+                        {/* NavBar의 탭 연결 페이지 경로 */}
+                        <Route path="/calendar" element={<Calendar/>}/>
+                        <Route path="/statistics" element={<Statistics/>}/>
 
-                    {/* GuestRecord */}
-                    <Route path="/guestrecord" element={<GuestRecord/>}/>
+                        {/* GuestRecord */}
+                        <Route path="/guestrecord" element={<GuestRecord/>}/>
 
-                    {/* RecordScript */}
-                    <Route path="/recordscript" element={<RecordScript/>}/>
+                        {/* RecordScript */}
+                        <Route path="/recordscript" element={<RecordScript/>}/>
 
-                    {/* 해당 날짜의 피드백 페이지 */}
-                    <Route path="/feedback" element={<Feedback/>}/>
+                        {/* 해당 날짜의 피드백 페이지 */}
+                        <Route path="/feedback" element={<Feedback/>}/>
 
-                    <Route path="/loading" element={<Loading/>}/>
-                </Routes>
-            </BrowserRouter>
+                        <Route path="/loading" element={<Loading/>}/>
+                    </Routes>
+                </BrowserRouter>
+            </AnalysisProvider>
         </div>
     );
 };

@@ -13,11 +13,16 @@ const StatisticsPage = () => {
     const [activeKey, setActiveKey] = useState("추임새");
     const [scrollPosition, setScrollPosition] = useState(0);
     const scrollRef = React.useRef(null);
-    const [statisticsData, setStatisticsData] = useState(
-        encodedStatisticsData
-            ? JSON.parse(decodeURIComponent(encodedStatisticsData))
-            : []
-    );
+    const [statisticsData, setStatisticsData] = useState(() => {
+        try {
+            return encodedStatisticsData
+                ? JSON.parse(decodeURIComponent(encodedStatisticsData))
+                : [];
+        } catch (error) {
+            console.error("Invalid statistics data:", error);
+            return [];
+        }
+    });
     const [level, setLevel] = useState(4);
 
     // 페이지 렌더링 후 가장 최근 데이터가 보이도록 스크롤 조정

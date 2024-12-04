@@ -2,11 +2,12 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import instance from "../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../constants/api";
+import {useAnalysis} from "../context/AnalysisContext";
 
 const Header = () => {
     const navigate = useNavigate();
     const [analysisText, setAnalysisText] = useState("");
-    const [isNewAnalysisText, setIsNewAnalysisText] = useState(false);
+    const {isNewAnalysisText, setIsNewAnalysisText} = useAnalysis();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const Header = () => {
         }
 
         handleGetReport();
-    })
+    }, [analysisText, setIsNewAnalysisText])
 
 
     // Header의 복숭아멘토 텍스트 클릭 시 메인 페이지로 이동
