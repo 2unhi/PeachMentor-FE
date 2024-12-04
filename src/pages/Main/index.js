@@ -54,15 +54,29 @@ const Main = () => {
     const getLevelMessage = () => {
         switch (level) {
             case 1:
-                return "질문 확인 시간 : 10초, 스피치 시간 : 30초";
+                return "질문 확인 시간 : 20초, 스피치 시간 : 1분";
             case 2:
                 return "질문 확인 시간 : 10초, 스피치 시간 : 1분";
             case 3:
-                return "질문 확인 시간 : 10초, 스피치 시간 : 2분";
+                return "질문 확인 시간 : 5초, 스피치 시간 : 1분";
             default:
                 return "";
         }
     };
+
+    const getQuestionMessage = () => {
+        switch (level) {
+            case 1:
+                return "아래 버튼 클릭 후 20초 뒤 스피치가 시작됩니다!";
+            case 2:
+                return "아래 버튼 클릭 후 10초 뒤 스피치가 시작됩니다!";
+            case 3:
+                return "아래 버튼 클릭 후 5초 뒤 스피치가 시작됩니다!";
+            default:
+                return "";
+        }
+    };
+
 
     const buttonStyle = (buttonLevel) => {
         return level === buttonLevel
@@ -104,7 +118,7 @@ const Main = () => {
 
                 <>
                     <p className="mt-8 text-base font-paperlogy-title text-grayscale-90">
-                        아래 버튼 클릭 후 10초 뒤 스피치가 시작됩니다!
+                        {getQuestionMessage()}
                     </p>
                     <p className="mt-4 text-base font-paperlogy-title text-grayscale-90">
                         {getLevelMessage()}

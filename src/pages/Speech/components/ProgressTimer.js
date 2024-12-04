@@ -3,21 +3,8 @@ import React, {useEffect, useState} from "react";
 const ProgressTimer = ({level, onTimeUp}) => {
     const [progress, setProgress] = useState(100); // 초기 게이지를 100%로 설정
 
-    const getDurationInSeconds = (level) => {
-        switch (level) {
-            case "1":
-                return 30;
-            case "2":
-                return 60;
-            case "3":
-                return 120;
-            default:
-                return 60;
-        }
-    };
-
     useEffect(() => {
-        const durationInSeconds = getDurationInSeconds(level);
+        const durationInSeconds = 60;
         const interval = setInterval(() => {
             setProgress((prev) => {
                 const newProgress = prev - 100 / (durationInSeconds);

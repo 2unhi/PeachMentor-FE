@@ -1,7 +1,14 @@
 import React, {useEffect, useState} from "react";
 
 const Countdown = ({level, onCountdownComplete}) => {
-    const initialTime = level === "1" ? 10 : level === "2" || level === "3" ? 10 : 10;
+    let initialTime;
+    if (level === "1") {
+        initialTime = 20;
+    } else if (level === "2") {
+        initialTime = 10;
+    } else if (level === "3") {
+        initialTime = 5;
+    }
     const [secondsLeft, setSecondsLeft] = useState(initialTime);
 
     useEffect(() => {
