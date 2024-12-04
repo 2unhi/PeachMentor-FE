@@ -18,7 +18,7 @@ const Main = () => {
   const feedback = selfFeedback === "null" ? null : selfFeedback; // "null" 문자열을 null로 변환
   const isCompleteSpeech = searchParams.get("isCompleteSpeech") === "true";
   const [level, setLevel] = useState(1);
-  const [canStop, setCanStop] = useState(false);
+  const [canStop, setCanStop] = useState(true);
 
   const handleQuestionClick = async () => {
     try {
