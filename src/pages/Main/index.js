@@ -6,7 +6,6 @@ import NavBar from "../../components/NavBar";
 import {SPRING_API_URL} from "../../constants/api";
 import instance from "../../axios/TokenInterceptor";
 import {useLocation, useNavigate} from "react-router-dom";
-import SelfFeedback from "./components/SelfFeedback";
 import StartPopup from "./components/StartPopup";
 
 const Main = () => {
@@ -75,9 +74,6 @@ const Main = () => {
         <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
             <Header/>
             <main className="flex flex-col items-center justify-center flex-grow px-4">
-                {/* 이전 스피치에서의 셀프 피드백 */}
-                {feedback && <SelfFeedback selfFeedback={feedback}/>}
-
                 {/*/!* "오늘의 질문" 버튼 또는 완료 메시지 버튼 *!/*/}
                 {/*{isCompleteSpeech ? (*/}
                 {/*    <button*/}
