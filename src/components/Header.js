@@ -6,7 +6,7 @@ import {SPRING_API_URL} from "../constants/api";
 const Header = () => {
     const navigate = useNavigate();
     const [analysisText, setAnalysisText] = useState("HIHI");
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(true);
 
     const handleGetReport = async () => {
         try {
