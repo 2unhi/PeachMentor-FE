@@ -5,16 +5,18 @@ import {Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from "rech
 import {useLocation} from "react-router-dom";
 import instance from "../../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../../constants/api";
+import Loading from "../../components/Loading";
 
 const StatisticsPage = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const encodedStatisticsData = searchParams.get("statisticsData");
-    const [activeKey, setActiveKey] = useState("추임새"); // 디폴트는 추임새
+    const [activeKey, setActiveKey] = useState("추임새");
     const [scrollPosition, setScrollPosition] = useState(0);
     const scrollRef = React.useRef(null);
     const [statisticsData, setStatisticsData] = useState([]);
     const [level, setLevel] = useState(4);
+    const [isLoading, setIsLoading] = useState(true);
 
     // 페이지 렌더링 후 가장 최근 데이터가 보이도록 스크롤 조정
     useEffect(() => {
@@ -24,8 +26,10 @@ const StatisticsPage = () => {
                     decodeURIComponent(encodedStatisticsData)
                 );
                 setStatisticsData(parsedData);
+                setIsLoading(false);
             } catch (error) {
                 console.error("Invalid statistics data:", error);
+                setIsLoading(false);
             }
         }
     }, [encodedStatisticsData]);
@@ -47,6 +51,7 @@ const StatisticsPage = () => {
     };
 
     const handleWholeButton = async () => {
+        setIsLoading(true);
         try {
             const response = await instance.get(`${SPRING_API_URL}/statistics`);
             if (response.data.isSuccess) {
@@ -65,10 +70,13 @@ const StatisticsPage = () => {
             }
         } catch (error) {
             console.error("통계 데이터 받아오기 실패");
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const handleLevelButton = async (level) => {
+        setIsLoading(true);
         try {
             const response = await instance.get(
                 `${SPRING_API_URL}/statistics/levels?level=${level}`
@@ -93,6 +101,8 @@ const StatisticsPage = () => {
             }
         } catch (error) {
             console.error("난이도별 통계 데이터 받아오기 오류");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -132,62 +142,69 @@ const StatisticsPage = () => {
                             전체
                         </button>
                     </div>
-                    <div
-                        className="flex-grow max-w-[400px] overflow-x-auto scrollbar-hide relative flex border rounded-3xl px-2"
-                        ref={scrollRef}
-                        onMouseDown={(e) => setScrollPosition(e.clientX)}
-                        onMouseMove={(e) => e.buttons === 1 && handleDragScroll(e)}
-                        onMouseUp={() => setScrollPosition(0)}
-                        onTouchStart={(e) => setScrollPosition(e.touches[0].clientX)}
-                        onTouchMove={handleDragScroll}
-                        onTouchEnd={() => setScrollPosition(0)}
-                    >
-                        {/* 그래프 */}
-                        <ResponsiveContainer width={700} height={300}>
-                            <LineChart
-                                data={statisticsData}
-                                margin={{top: 20, right: 20, left: 20, bottom: 10}}
-                            >
-                                <YAxis
-                                    dataKey={activeKey}
-                                    width={50}
-                                    tick={{fontSize: 12, fill: "#333"}}
-                                    axisLine={false}
-                                    tickLine={false}
-                                />
-                                <XAxis
-                                    dataKey="day"
-                                    tick={{fontSize: 12, fill: "#333"}}
-                                    tickFormatter={(day) => day.substring(5)}
-                                    axisLine={{stroke: "#ccc"}}
-                                    tickLine={false}
-                                />
-                                {/* 그래프 선 */}
-                                <Line
-                                    type="monotone"
-                                    dataKey={activeKey}
-                                    stroke="#5D9CEC"
-                                    strokeWidth={3}
-                                    dot={{fill: "#5D9CEC", r: 3}}
-                                    activeDot={{fill: "#34495E", r: 7}}
-                                />
-                                <Tooltip
-                                    cursor={false}
-                                    contentStyle={{
-                                        backgroundColor: "#D6EDFF",
-                                        borderRadius: "8px",
-                                        color: "#000000",
-                                        fontSize: "14px",
-                                    }}
-                                    labelFormatter={(label) =>
-                                        `날짜: ${label.substring(5).replace("-", "/")}`
-                                    }
-                                    itemStyle={{color: "#00325C"}}
-                                />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>
+
+                    {/* 데이터 로딩 중에 로딩 UI 표시 */}
+                    {isLoading ? (
+                        <Loading/>
+                    ) : (
+                        <div
+                            className="flex-grow max-w-[400px] overflow-x-auto scrollbar-hide relative flex border rounded-3xl px-2"
+                            ref={scrollRef}
+                            onMouseDown={(e) => setScrollPosition(e.clientX)}
+                            onMouseMove={(e) => e.buttons === 1 && handleDragScroll(e)}
+                            onMouseUp={() => setScrollPosition(0)}
+                            onTouchStart={(e) => setScrollPosition(e.touches[0].clientX)}
+                            onTouchMove={handleDragScroll}
+                            onTouchEnd={() => setScrollPosition(0)}
+                        >
+                            {/* 그래프 */}
+                            <ResponsiveContainer width={700} height={300}>
+                                <LineChart
+                                    data={statisticsData}
+                                    margin={{top: 20, right: 20, left: 20, bottom: 10}}
+                                >
+                                    <YAxis
+                                        dataKey={activeKey}
+                                        width={50}
+                                        tick={{fontSize: 12, fill: "#333"}}
+                                        axisLine={false}
+                                        tickLine={false}
+                                    />
+                                    <XAxis
+                                        dataKey="day"
+                                        tick={{fontSize: 12, fill: "#333"}}
+                                        tickFormatter={(day) => day.substring(5)}
+                                        axisLine={{stroke: "#ccc"}}
+                                        tickLine={false}
+                                    />
+                                    {/* 그래프 선 */}
+                                    <Line
+                                        type="monotone"
+                                        dataKey={activeKey}
+                                        stroke="#5D9CEC"
+                                        strokeWidth={3}
+                                        dot={{fill: "#5D9CEC", r: 3}}
+                                        activeDot={{fill: "#34495E", r: 7}}
+                                    />
+                                    <Tooltip
+                                        cursor={false}
+                                        contentStyle={{
+                                            backgroundColor: "#D6EDFF",
+                                            borderRadius: "8px",
+                                            color: "#000000",
+                                            fontSize: "14px",
+                                        }}
+                                        labelFormatter={(label) =>
+                                            `날짜: ${label.substring(5).replace("-", "/")}`
+                                        }
+                                        itemStyle={{color: "#00325C"}}
+                                    />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>
+                    )}
                 </div>
+
                 {/* 분석 종류 버튼 */}
                 <div className="flex justify-center mt-4 space-x-4">
                     <button

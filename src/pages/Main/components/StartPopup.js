@@ -19,7 +19,7 @@ const StartPopup = ({level, selfFeedback, onClose, onStart}) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="w-[85%] max-w-[400px] bg-white rounded-lg shadow-lg p-4">
                 <h2 className="mb-4 text-lg font-bold text-center text-grayscale-100">
-                    ✉️ 잠깐! 과거의 나는 어떤 피드백을 남겼을까? ✉️
+                    잠깐! <br/> 과거의 나는 어떤 피드백을 남겼을까?
                 </h2>
                 {/* 셀프 피드백 내용 */}
                 <div>
