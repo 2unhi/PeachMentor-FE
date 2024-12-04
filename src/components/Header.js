@@ -6,15 +6,17 @@ import {SPRING_API_URL} from "../constants/api";
 const Header = () => {
     const navigate = useNavigate();
     const [analysisText, setAnalysisText] = useState("HIHI");
-    const [isModalOpen, setIsModalOpen] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleGetReport = async () => {
         try {
+            setIsModalOpen(true);
             const response = await instance.get(`${SPRING_API_URL}/analysis`);
             if (response.data.isSuccess) {
                 if (response.data.code === "STATISTICS2003") {
-                    setAnalysisText(response.data.result.analysisText);
-                    setIsModalOpen(true);
+                    if (response.data.result.analysisText !== "") {
+                        setAnalysisText(response.data.result.analysisText);
+                    }
                     console.log("유저 7일 분석 레포트 받아오기 완료");
                 } else {
                     console.error("유저 7일 분석 레포트 받아오기 api 오류");
