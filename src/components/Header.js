@@ -6,7 +6,9 @@ import {SPRING_API_URL} from "../constants/api";
 const Header = () => {
     const navigate = useNavigate();
     const [analysisText, setAnalysisText] = useState("");
-    const [isNewAnalysisText, setIsNewAnalysisText] = useState(false);
+    const [isNewAnalysisText, setIsNewAnalysisText] = useState(
+        JSON.parse(localStorage.getItem("isNewAnalysisText")) || false
+    );
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
@@ -19,8 +21,10 @@ const Header = () => {
                         if (newAnalysisText !== analysisText) {
                             setIsNewAnalysisText(true);
                             setAnalysisText(newAnalysisText);
+                            localStorage.setItem("isNewAnalysisText", JSON.stringify(true));
                         } else {
                             setIsNewAnalysisText(false);
+                            localStorage.setItem("isNewAnalysisText", JSON.stringify(false));
                         }
                         console.log("유저 7일 분석 레포트 받아오기 완료");
                     } else {
@@ -95,6 +99,7 @@ const Header = () => {
     const handleClickNotification = () => {
         setIsModalOpen(true);
         setIsNewAnalysisText(false);
+        localStorage.setItem("isNewAnalysisText", JSON.stringify(false));
     }
 
     const handleCloseModal = () => {

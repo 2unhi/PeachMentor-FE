@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import {Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from "recharts";
@@ -13,30 +13,22 @@ const StatisticsPage = () => {
     const [activeKey, setActiveKey] = useState("추임새"); // 디폴트는 추임새
     const [scrollPosition, setScrollPosition] = useState(0);
     const scrollRef = React.useRef(null);
-    const [statisticsData, setStatisticsData] = useState(() => {
-        if (!encodedStatisticsData) return [];
-        try {
-            return JSON.parse(decodeURIComponent(encodedStatisticsData));
-        } catch (error) {
-            console.error("Invalid statistics data:", error);
-            return []; // 오류 시 빈 배열
-        }
-    });
+    const [statisticsData, setStatisticsData] = useState([]);
     const [level, setLevel] = useState(4);
 
     // 페이지 렌더링 후 가장 최근 데이터가 보이도록 스크롤 조정
-    // useEffect(() => {
-    //     if (encodedStatisticsData) {
-    //         try {
-    //             const parsedData = JSON.parse(
-    //                 decodeURIComponent(encodedStatisticsData)
-    //             );
-    //             setStatisticsData(parsedData);
-    //         } catch (error) {
-    //             console.error("Invalid statistics data:", error);
-    //         }
-    //     }
-    // }, [encodedStatisticsData]);
+    useEffect(() => {
+        if (encodedStatisticsData) {
+            try {
+                const parsedData = JSON.parse(
+                    decodeURIComponent(encodedStatisticsData)
+                );
+                setStatisticsData(parsedData);
+            } catch (error) {
+                console.error("Invalid statistics data:", error);
+            }
+        }
+    }, [encodedStatisticsData]);
 
     const handleDragScroll = (event) => {
         const isTouch = event.type === "touchstart" || event.type === "touchmove";
