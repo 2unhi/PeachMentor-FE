@@ -1,33 +1,42 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import instance from "../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../constants/api";
 
 const Header = () => {
     const navigate = useNavigate();
-    const [analysisText, setAnalysisText] = useState("HIHI\nHIHI");
+    const [analysisText, setAnalysisText] = useState("");
+    const [isNewAnalysisText, setIsNewAnalysisText] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleGetReport = async () => {
-        try {
-            setIsModalOpen(true);
-            const response = await instance.get(`${SPRING_API_URL}/analysis`);
-            if (response.data.isSuccess) {
-                if (response.data.code === "STATISTICS2003") {
-                    if (response.data.result.analysisText !== "") {
-                        setAnalysisText(response.data.result.analysisText);
+    useEffect(() => {
+        const handleGetReport = async () => {
+            try {
+                const response = await instance.get(`${SPRING_API_URL}/analysis`);
+                if (response.data.isSuccess) {
+                    if (response.data.code === "STATISTICS2003") {
+                        const newAnalysisText = response.data.result.analysisText;
+                        if (newAnalysisText !== analysisText) {
+                            setIsNewAnalysisText(true);
+                            setAnalysisText(newAnalysisText);
+                        } else {
+                            setIsNewAnalysisText(false);
+                        }
+                        console.log("유저 7일 분석 레포트 받아오기 완료");
+                    } else {
+                        console.error("유저 7일 분석 레포트 받아오기 api 오류");
                     }
-                    console.log("유저 7일 분석 레포트 받아오기 완료");
                 } else {
-                    console.error("유저 7일 분석 레포트 받아오기 api 오류");
+                    console.error("서버 에러");
                 }
-            } else {
-                console.error("서버 에러");
+            } catch (error) {
+                console.error("유저 7일 분석 레포트 받아오기 실패");
             }
-        } catch (error) {
-            console.error("유저 7일 분석 레포트 받아오기 실패");
         }
-    }
+
+        handleGetReport();
+    })
+
 
     // Header의 복숭아멘토 텍스트 클릭 시 메인 페이지로 이동
     const handleLogoClick = async () => {
@@ -83,6 +92,11 @@ const Header = () => {
         );
     };
 
+    const handleClickNotification = () => {
+        setIsModalOpen(true);
+        setIsNewAnalysisText(false);
+    }
+
     const handleCloseModal = () => {
         setIsModalOpen(false); // 모달 닫기
     };
@@ -103,10 +117,10 @@ const Header = () => {
                 </h1>
                 <div className="flex items-center gap-3">
                     <img
-                        src="/images/notification.svg"
+                        src={isNewAnalysisText ? "/images/Alarm.gif" : "/images/notification.svg"}
                         alt="Notification Icon"
                         className="cursor-pointer w-7 h-7"
-                        onClick={handleGetReport}
+                        onClick={handleClickNotification}
                     />
                     <img
                         src="/webp/mypage_menu.webp"
