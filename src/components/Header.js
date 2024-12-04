@@ -5,7 +5,7 @@ import {SPRING_API_URL} from "../constants/api";
 
 const Header = () => {
     const navigate = useNavigate();
-    const [analysisText, setAnalysisText] = useState("HIHI");
+    const [analysisText, setAnalysisText] = useState("HIHI\nHIHI");
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleGetReport = async () => {
@@ -121,9 +121,11 @@ const Header = () => {
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
                         <h2 className="text-xl font-bold mb-4">일주일 리포트 분석</h2>
-                        <p className="mb-4">{analysisText}</p>
+                        <p className="mb-4">
+                            <pre className="whitespace-pre-wrap">{analysisText}</pre>
+                        </p>
                         <button
-                            className="px-4 py-2 bg-primary-500 text-white rounded"
+                            className="px-4 py-2 bg-primary-500 text-Black rounded"
                             onClick={handleCloseModal}
                         >
                             닫기
