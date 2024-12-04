@@ -7,37 +7,14 @@ import instance from "../../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../../constants/api";
 
 const StatisticsPage = () => {
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const encodedStatisticsData = searchParams.get("statisticsData");
+    // const location = useLocation();
+    // const searchParams = new URLSearchParams(location.search);
+    // const encodedStatisticsData = searchParams.get("statisticsData");
     const [activeKey, setActiveKey] = useState("추임새");
     const [scrollPosition, setScrollPosition] = useState(0);
     const scrollRef = React.useRef(null);
-    const [statisticsData, setStatisticsData] = useState(() => {
-        try {
-            return encodedStatisticsData
-                ? JSON.parse(decodeURIComponent(encodedStatisticsData))
-                : [];
-        } catch (error) {
-            console.error("Invalid statistics data:", error);
-            return [];
-        }
-    });
-    const [level, setLevel] = useState(4);
-
-    // 페이지 렌더링 후 가장 최근 데이터가 보이도록 스크롤 조정
-    // useEffect(() => {
-    //     if (encodedStatisticsData) {
-    //         try {
-    //             const parsedData = JSON.parse(
-    //                 decodeURIComponent(encodedStatisticsData)
-    //             );
-    //             setStatisticsData(parsedData);
-    //         } catch (error) {
-    //             console.error("Invalid statistics data:", error);
-    //         }
-    //     }
-    // }, [encodedStatisticsData]);
+    const [statisticsData, setStatisticsData] = useState([]);
+    const [level, setLevel] = useState(5);
 
     const handleDragScroll = (event) => {
         const isTouch = event.type === "touchstart" || event.type === "touchmove";

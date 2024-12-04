@@ -59,24 +59,25 @@ const NavBar = () => {
     };
 
     const handleStatisticsButton = async () => {
-        let statisticsData = [];
-        try {
-            const response = await instance.get(`${SPRING_API_URL}/statistics`);
-            if (response.data.isSuccess) {
-                if (response.data.code === "STATISTICS2001") {
-                    statisticsData = response.data.result.map((item) => ({
-                        day: item.day, // 날짜 그대로 사용
-                        추임새: item.gantourCount, // 'gantourCount' 값을 '추임새'로 변환
-                        침묵시간: item.silentTime, // 'silentTime' 값을 '침묵시간'으로 변환
-                    }));
-                } else if (response.data.code === "STATISTICS4001") {
-                    console.error("통계 데이터 받아오기 실패");
-                }
-            }
-        } catch (error) {
-            console.error("통계 데이터 받아오기 실패");
-        }
-        navigate(`/statistics?statisticsData=${encodeURIComponent(JSON.stringify(statisticsData))}}`);
+        // let statisticsData = [];
+        // try {
+        //     const response = await instance.get(`${SPRING_API_URL}/statistics`);
+        //     if (response.data.isSuccess) {
+        //         if (response.data.code === "STATISTICS2001") {
+        //             statisticsData = response.data.result.map((item) => ({
+        //                 day: item.day, // 날짜 그대로 사용
+        //                 추임새: item.gantourCount, // 'gantourCount' 값을 '추임새'로 변환
+        //                 침묵시간: item.silentTime, // 'silentTime' 값을 '침묵시간'으로 변환
+        //             }));
+        //         } else if (response.data.code === "STATISTICS4001") {
+        //             console.error("통계 데이터 받아오기 실패");
+        //         }
+        //     }
+        // } catch (error) {
+        //     console.error("통계 데이터 받아오기 실패");
+        // }
+        navigate('/statistics');
+        // navigate(`/statistics?statisticsData=${encodeURIComponent(JSON.stringify(statisticsData))}}`);
     };
 
     // 현재 페이지를 기반으로 버튼 스타일링 설정
