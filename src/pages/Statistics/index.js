@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import {Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from "recharts";
-import {useLocation} from "react-router-dom";
 import instance from "../../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../../constants/api";
 
