@@ -168,6 +168,7 @@ const StatisticsPage = () => {
                 data={statisticsData}
                 margin={{ top: 20, right: 20, left: 20, bottom: 10 }}
               >
+                {/* Y축 설정 */}
                 <YAxis
                   dataKey={activeKey}
                   width={50}
@@ -175,12 +176,16 @@ const StatisticsPage = () => {
                   axisLine={false}
                   tickLine={false}
                 />
+                {/* X축 설정 */}
                 <XAxis
                   dataKey="day"
                   tick={{ fontSize: 12, fill: "#333" }}
                   tickFormatter={(day) => day.substring(5)}
                   axisLine={{ stroke: "#ccc" }}
                   tickLine={false}
+                  interval={0}
+                  padding={{ left: 20, right: 20 }}
+                  minTickGap={60}
                 />
                 {/* 그래프 선 */}
                 <Line
@@ -191,6 +196,7 @@ const StatisticsPage = () => {
                   dot={{ fill: "#5D9CEC", r: 3 }}
                   activeDot={{ fill: "#34495E", r: 7 }}
                 />
+                {/* 툴팁 설정 */}
                 <Tooltip
                   cursor={false}
                   contentStyle={{
