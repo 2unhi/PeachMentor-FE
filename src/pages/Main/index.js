@@ -64,20 +64,6 @@ const Main = () => {
         }
     };
 
-    const getQuestionMessage = () => {
-        switch (level) {
-            case 1:
-                return "아래 버튼 클릭 후 20초 뒤 스피치가 시작됩니다!";
-            case 2:
-                return "아래 버튼 클릭 후 10초 뒤 스피치가 시작됩니다!";
-            case 3:
-                return "아래 버튼 클릭 후 5초 뒤 스피치가 시작됩니다!";
-            default:
-                return "";
-        }
-    };
-
-
     const buttonStyle = (buttonLevel) => {
         return level === buttonLevel
             ? "w-10 h-10 flex items-center justify-center text-white rounded-full bg-primary-40 font-paperlogy-title"
@@ -117,9 +103,6 @@ const Main = () => {
                 {/*)}*/}
 
                 <>
-                    <p className="mt-8 text-base font-paperlogy-title text-grayscale-90">
-                        {getQuestionMessage()}
-                    </p>
                     <p className="mt-4 text-base font-paperlogy-title text-grayscale-90">
                         {getLevelMessage()}
                     </p>
@@ -211,6 +194,7 @@ const Main = () => {
             {/* 시작 전 셀프 피드백을 보여주는 팝업 */}
             {isPopupOpen && (
                 <StartPopup
+                    level={level}
                     selfFeedback={feedback}
                     onClose={handlePopupClose}
                     onStart={handlePopupStart}
