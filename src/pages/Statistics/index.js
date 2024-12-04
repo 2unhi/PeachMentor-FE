@@ -6,10 +6,7 @@ import instance from "../../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../../constants/api";
 
 const StatisticsPage = () => {
-    // const location = useLocation();
-    // const searchParams = new URLSearchParams(location.search);
-    // const encodedStatisticsData = searchParams.get("statisticsData");
-    const [activeKey, setActiveKey] = useState("추임새");
+    const [activeKey, setActiveKey] = useState("");
     const [scrollPosition, setScrollPosition] = useState(0);
     const scrollRef = React.useRef(null);
     const [statisticsData, setStatisticsData] = useState([]);

@@ -2,12 +2,12 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import instance from "../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../constants/api";
-import {useAnalysis} from "../context/AnalysisContext";
 
 const Header = () => {
     const navigate = useNavigate();
     const [analysisText, setAnalysisText] = useState("");
-    const {isNewAnalysisText, setIsNewAnalysisText} = useAnalysis();
+    const [firstDate, setFirstDate] = useState("");
+    const [lastDate, setLastDate] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
@@ -16,13 +16,9 @@ const Header = () => {
                 const response = await instance.get(`${SPRING_API_URL}/analysis`);
                 if (response.data.isSuccess) {
                     if (response.data.code === "STATISTICS2003") {
-                        const newAnalysisText = response.data.result.analysisText;
-                        if (newAnalysisText !== analysisText) {
-                            setIsNewAnalysisText(true);
-                            setAnalysisText(newAnalysisText);
-                        } else {
-                            setIsNewAnalysisText(false);
-                        }
+                        setAnalysisText(response.data.result.analysisText);
+                        setFirstDate(response.data.result.firstDate);
+                        setLastDate(response.data.result.lastDate);
                         console.log("유저 7일 분석 레포트 받아오기 완료");
                     } else {
                         console.error("유저 7일 분석 레포트 받아오기 api 오류");
@@ -36,7 +32,7 @@ const Header = () => {
         }
 
         handleGetReport();
-    }, [analysisText, setIsNewAnalysisText])
+    }, [analysisText])
 
 
     // Header의 복숭아멘토 텍스트 클릭 시 메인 페이지로 이동
@@ -95,14 +91,12 @@ const Header = () => {
 
     const handleClickNotification = () => {
         setIsModalOpen(true);
-        setIsNewAnalysisText(false);
     }
 
     const handleCloseModal = () => {
-        setIsModalOpen(false); // 모달 닫기
+        setIsModalOpen(false);
     };
 
-    // Header의 오른쪽 메뉴 버튼 클릭 시 마이페이지로 이동
     const handleMyPageClick = () => {
         navigate("/mypage");
     };
@@ -118,7 +112,7 @@ const Header = () => {
                 </h1>
                 <div className="flex items-center gap-3">
                     <img
-                        src={isNewAnalysisText ? "/images/Alarm.gif" : "/images/notification.svg"}
+                        src="/images/notification.svg"
                         alt="Notification Icon"
                         className="cursor-pointer w-7 h-7"
                         onClick={handleClickNotification}
@@ -135,7 +129,11 @@ const Header = () => {
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-                        <h2 className="text-xl font-bold mb-4">일주일 리포트 분석</h2>
+                        <h2 className="text-xl font-bold mb-4">
+                            {firstDate && lastDate
+                                ? `${firstDate}~${lastDate} : 분석 리포트`
+                                : "분석 리포트가 아직 없습니다!"}
+                        </h2>
                         <p className="mb-4">
                             <pre className="whitespace-pre-wrap">{analysisText}</pre>
                         </p>
