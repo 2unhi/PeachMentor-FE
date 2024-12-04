@@ -10,12 +10,12 @@ import {useNavigate} from "react-router-dom";
 const CalendarPage = () => {
     const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [markedDates, setMarkedDates] = useState(new Array(32).fill(0));
+    const [markedDates, setMarkedDates] = useState(new Array(32).fill(null));
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
 
-        const answerId = markedDates[date.getDate() - 1];
+        const answerId = markedDates[date.getDate() - 1].answerId;
         if (answerId > 0) {
             const newDate = new Date(date);
             newDate.setDate(newDate.getDate() + 1);
@@ -32,7 +32,15 @@ const CalendarPage = () => {
                 params: {year, month},
             });
             if (response.data.isSuccess) {
-                setMarkedDates(response.data.result);
+                const updatedDates = new Array(32).fill(null); // 초기화
+                response.data.result.forEach((answerId, index) => {
+                    if (answerId !== 0) {
+                        const fullDate = new Date(year, month - 1, index + 1); // 날짜 계산
+                        updatedDates[index] = {date: fullDate, answerId}; // 날짜와 answerId를 객체로 저장
+                    }
+                });
+                console.log(updatedDates);
+                setMarkedDates(updatedDates);
                 console.log("달력 정보 가져오기 성공");
             } else {
                 console.error("달력 정보 가져오기 실패", response.data.message);
@@ -110,8 +118,14 @@ const CalendarPage = () => {
                         formatDay={(locale, date) => date.getDate()}
                         tileContent={({date, view}) => {
                             if (view === "month") {
-                                const isMarked = markedDates[date.getDate() - 1] !== 0; // markedDates 배열을 사용하여 날짜 확인
+                                const markedData = markedDates[date.getDate() - 1];
+                                const isMarked =
+                                    markedData &&
+                                    markedData.date.toDateString() === date.toDateString() && // 날짜 비교 (문자열 형태)
+                                    markedData.answerId !== 0;
                                 if (isMarked) {
+                                    console.log(date);
+                                    console.log(markedData.date)
                                     return (
                                         <div className="relative flex items-center justify-center px-4 py-2">
                                             <div

@@ -96,37 +96,48 @@ const Main = () => {
           </>
         )}
 
-        {/* 메인 시작 페이지 돋보기 애니메이션 */}
-        <div className="w-3/4 mt-8">
-          <Lottie
-            loop
-            animationData={mainAnimations}
-            play
-            style={{ width: "100%", height: "auto" }}
-          />
-        </div>
-        <p className="mt-8 text-base font-paperlogy-title text-grayscale-90">
-          오늘 진행할 스피치의 난이도를 선택하세요!
-        </p>
-        <div className="flex mt-6 space-x-4">
-          <button onClick={() => setLevel(1)} className={buttonStyle(1)}>
-            1
-          </button>
-          <button onClick={() => setLevel(2)} className={buttonStyle(2)}>
-            2
-          </button>
-          <button onClick={() => setLevel(3)} className={buttonStyle(3)}>
-            3
-          </button>
-          <button
-            onClick={() => setCanStop(!canStop)}
-            className={`px-3 py-2 text-white rounded-md ${
-              canStop ? "bg-red-500" : "bg-green-500"
-            } hover:bg-opacity-90`}
-          >
-            {canStop ? "Off" : "On"}
-          </button>
-        </div>
+      {/* 메인 시작 페이지 돋보기 애니메이션 */}
+          <div className="w-3/4 mt-8">
+              <Lottie
+                  loop
+                  animationData={mainAnimations}
+                  play
+                  style={{width: "100%", height: "auto"}}
+              />
+          </div>
+          {!isCompleteSpeech && (
+              <>
+                  <p className="mt-8 text-base font-paperlogy-title text-grayscale-90">
+                      오늘 진행할 스피치의 난이도를 선택하세요!
+                  </p>
+                  <div className="flex space-x-4 mt-6">
+                      <button
+                          onClick={() => setLevel(1)}
+                          className={buttonStyle(1)}
+                      >
+                          1
+                      </button>
+                      <button
+                          onClick={() => setLevel(2)}
+                          className={buttonStyle(2)}
+                      >
+                          2
+                      </button>
+                      <button
+                          onClick={() => setLevel(3)}
+                          className={buttonStyle(3)}
+                      >
+                          3
+                      </button>
+                      <button
+                          onClick={() => setCanStop(!canStop)}
+                          className={`px-4 py-2 text-white rounded-md ${canStop ? 'bg-green-500' : 'bg-red-500'} hover:bg-opacity-80`}
+                      >
+                          {canStop ? 'On' : 'Off'}
+                      </button>
+                  </div>
+              </>
+          )}
       </main>
       <NavBar />
     </div>
