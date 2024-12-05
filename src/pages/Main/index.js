@@ -132,20 +132,6 @@ const Main = () => {
                     </>
                 )}
 
-                <>
-                    <p className="mt-4 text-base font-paperlogy-title text-grayscale-90">
-                        {getLevelMessage()}
-                    </p>
-                    <button
-                        onClick={handleQuestionClick}
-                        className="relative px-6 py-4 mt-6 text-lg text-white transition-all duration-300 shadow-md rounded-2xl bg-primary-40 font-paperlogy-title hover:scale-110 hover:shadow-lg hover:bg-primary-50 focus:outline-none focus:ring-4 focus:ring-primary-50 active:scale-95"
-                    >
-                        오늘의 질문
-                        <div
-                            className="absolute inset-x-0 bottom-0 h-3 transition-opacity duration-300 rounded-full opacity-0 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-400 blur-md hover:opacity-100"></div>
-                    </button>
-                </>
-
                 {/* 메인 시작 페이지 돋보기 애니메이션 */}
                 <div className="w-3/4 mt-8">
                     <Lottie
