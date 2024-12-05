@@ -30,8 +30,10 @@ const RecordScript = ({selectedDate}) => {
 
     // 별표 및 안내 문구 표시 상태 관리
     const [showGuide, setShowGuide] = useState(true);
+    const [hasFetchedData, setHasFetchedData] = useState(false);
 
     const {
+        isNewReport,
         analysisText,
         setAnalysisText,
         setIsNewReport,
@@ -40,6 +42,8 @@ const RecordScript = ({selectedDate}) => {
     } = useContext(NotificationContext);
 
     useEffect(() => {
+        if (hasFetchedData) return;
+
         const getFeedbackData = async () => {
             const answerId = localStorage.getItem("answerId");
             try {
@@ -139,10 +143,13 @@ const RecordScript = ({selectedDate}) => {
             }
         }
 
+
         getAiResponse();
         getFeedbackData();
         getCanSaveAnalysis(); // 분석 가능해? -> 가능하면 분석하고 분석을 새로 만들었으면 최근 리포트 가져오기
-    });
+        setHasFetchedData(true);
+
+    }, [analysisText, setAnalysisText, setFirstDate, setLastDate, setIsNewReport, hasFetchedData]);
 
     useEffect(() => {
         // 5초 후에 강조 문구 제거
@@ -160,8 +167,33 @@ const RecordScript = ({selectedDate}) => {
         audio.onended = () => setActiveAudio(null);
     };
 
+
+    const handleCloseNotification = () => {
+        setIsNewReport(false);
+    }
+
     return (
         <div className="relative flex flex-col w-full min-h-screen overflow-hidden">
+            {isNewReport && (
+                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50">
+                    <div
+                        className="relative flex flex-col items-center text-xl font-semibold text-center text-white font-paperlogy-heading">
+                        <div className="mt-6 mb-6 animate-floating">
+                            <p>
+                                잠깐! <br/>
+                                새로운 분석 리포트가 도착했습니다! <br/>
+                                상단의 종 아이콘을 눌러 확인해주세요!
+                            </p>
+                        </div>
+                        <button
+                            className="px-8 py-4 mt-4 text-lg font-semibold text-black rounded-full bg-primary-20"
+                            onClick={() => handleCloseNotification()}
+                        >
+                            확인하러 가기
+                        </button>
+                    </div>
+                </div>
+            )}
             <div className="fixed top-0 z-20 w-full">
                 <Header/>
             </div>

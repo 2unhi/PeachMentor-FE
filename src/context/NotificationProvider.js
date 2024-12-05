@@ -32,7 +32,7 @@ export const NotificationProvider = ({children}) => {
         };
 
         getAnalysisReport();
-    }, [analysisText]);
+    }, []);
 
     return (
         <NotificationContext.Provider
