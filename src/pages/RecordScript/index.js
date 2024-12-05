@@ -32,10 +32,9 @@ const RecordScript = ({selectedDate}) => {
     const [showGuide, setShowGuide] = useState(true);
 
     const {
-        isNewReport,
-        setIsNewReport,
         analysisText,
         setAnalysisText,
+        setIsNewReport,
         setFirstDate,
         setLastDate,
     } = useContext(NotificationContext);
@@ -161,33 +160,8 @@ const RecordScript = ({selectedDate}) => {
         audio.onended = () => setActiveAudio(null);
     };
 
-    const handleCloseNotification = () => {
-        setIsNewReport(false);
-    }
-
     return (
         <div className="relative flex flex-col w-full min-h-screen overflow-hidden">
-            {isNewReport && (
-                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50">
-                    <div
-                        className="relative flex flex-col items-center text-xl font-semibold text-center text-white font-paperlogy-heading">
-                        <div className="mt-6 mb-6 animate-floating">
-                            <p>
-                                잠깐! <br/>
-                                새로운 분석 리포트가 도착했습니다! <br/>
-                                상단의 종 아이콘을 눌러 확인해주세요!
-                            </p>
-                        </div>
-                        <button
-                            className="px-8 py-4 mt-4 text-lg font-semibold text-black rounded-full bg-primary-20"
-                            onClick={() => handleCloseNotification()}
-                        >
-                        확인하러 가기
-                        </button>
-                    </div>
-                </div>
-            )}
-            {/* Header */}
             <div className="fixed top-0 z-20 w-full">
                 <Header/>
             </div>
