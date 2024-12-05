@@ -5,8 +5,8 @@ import instance from "../axios/TokenInterceptor";
 export const NotificationContext = createContext();
 
 export const NotificationProvider = ({children}) => {
-    const [isNewReport, setIsNewReport] = useState(true);
-    const [analysisText, setAnalysisText] = useState("");
+    const [isNewReport, setIsNewReport] = useState(false);
+    const [analysisText, setAnalysisText] = useState([[]]);
     const [firstDate, setFirstDate] = useState("");
     const [lastDate, setLastDate] = useState("");
 

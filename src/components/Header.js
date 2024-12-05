@@ -113,7 +113,14 @@ const Header = () => {
                                 : "분석 리포트가 아직 없습니다!"}
                         </h2>
                         <p className="mb-4">
-                            <pre className="whitespace-pre-wrap">{analysisText}</pre>
+                            <pre className="whitespace-pre-wrap">
+                                {analysisText.map((row, rowIndex) => (
+                                    <div key={rowIndex}>
+                                        <strong>{row[0]}</strong>
+                                        {row[1] ? `: ${row[1]}` : ''} {/* 내용이 있으면 :과 내용을, 없으면 아무것도 표시하지 않음 */}
+                                    </div>
+                                ))}
+                            </pre>
                         </p>
                         <button
                             className="px-4 py-2 bg-primary-500 text-Black rounded"

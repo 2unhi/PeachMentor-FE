@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Lottie from "react-lottie-player";
 import mainAnimations from "../../components/animations/mainAnimation.json";
 import Header from "../../components/Header";
@@ -7,6 +7,7 @@ import {SPRING_API_URL} from "../../constants/api";
 import instance from "../../axios/TokenInterceptor";
 import {useLocation, useNavigate} from "react-router-dom";
 import StartPopup from "./components/StartPopup";
+import {NotificationContext} from "../../context/NotificationProvider";
 
 const Main = () => {
     const navigate = useNavigate();
@@ -18,6 +19,11 @@ const Main = () => {
     const [level, setLevel] = useState(1);
     const [canStop, setCanStop] = useState(true);
     const [isPopupOpen, setIsPopupOpen] = useState(false); // 시작 전 셀프 피드백 팝업 상태 관리
+
+    const {
+        isNewReport,
+        setIsNewReport,
+    } = useContext(NotificationContext);
 
     const handleQuestionClick = async () => {
         setIsPopupOpen(true); // 팝업 열기
@@ -70,8 +76,32 @@ const Main = () => {
             : "w-10 h-10 flex items-center justify-center text-grayscale-90 rounded-full bg-grayscale-20 font-paperlogy-title";
     };
 
+    const handleCloseNotification = () => {
+        setIsNewReport(false);
+    }
+
     return (
         <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
+            {isNewReport && (
+                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50">
+                    <div
+                        className="relative flex flex-col items-center text-xl font-semibold text-center text-white font-paperlogy-heading">
+                        <div className="mt-6 mb-6 animate-floating">
+                            <p>
+                                잠깐! <br/>
+                                새로운 분석 리포트가 도착했습니다! <br/>
+                                상단의 종 아이콘을 눌러 확인해주세요!
+                            </p>
+                        </div>
+                        <button
+                            className="px-8 py-4 mt-4 text-lg font-semibold text-black rounded-full bg-primary-20"
+                            onClick={() => handleCloseNotification()}
+                        >
+                            확인하러 가기
+                        </button>
+                    </div>
+                </div>
+            )}
             <Header/>
             <main className="flex flex-col items-center justify-center flex-grow px-4">
                 {/*/!* "오늘의 질문" 버튼 또는 완료 메시지 버튼 *!/*/}
