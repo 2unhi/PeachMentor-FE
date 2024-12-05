@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import AISpeechPopup from "./components/AISpeechPopup";
@@ -7,6 +7,7 @@ import SelfFeedbackPopup from "./components/SelfFeedbackPopup";
 import instance from "../../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../../constants/api";
 import {useLocation} from "react-router-dom";
+import {NotificationContext} from "../../context/NotificationProvider";
 
 const userImage = "/images/record_user.png";
 const aiImage = "/images/record_ai.png";
@@ -33,7 +34,16 @@ const Feedback = () => {
     const [isFeedbackPopupOpen, setIsFeedbackPopupOpen] = useState(false); // 셀프 피드백 팝업 상태
     const [activeAudio, setActiveAudio] = useState(null);
 
+    const [hasFetchedData, setHasFetchedData] = useState(false);
+
+    const {
+        isNewReport,
+        setIsNewReport,
+    } = useContext(NotificationContext);
+
     useEffect(() => {
+        if (hasFetchedData) return;
+
         const getFeedbackData = async () => {
             try {
                 const response = await instance.get(
@@ -72,7 +82,8 @@ const Feedback = () => {
 
         getAiResponse();
         getFeedbackData();
-    }, [answerId]);
+        setHasFetchedData(true);
+    }, [answerId, hasFetchedData]);
 
     const playAudioWithGauge = (audioUrl) => {
         const audio = new Audio(audioUrl);
@@ -81,8 +92,32 @@ const Feedback = () => {
         audio.onended = () => setActiveAudio(null);
     };
 
+    const handleCloseNotification = () => {
+        setIsNewReport(false);
+    }
+
     return (
         <div className="relative flex flex-col w-full min-h-screen overflow-hidden">
+            {isNewReport && (
+                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50">
+                    <div
+                        className="relative flex flex-col items-center text-xl font-semibold text-center text-white font-paperlogy-heading">
+                        <div className="mt-6 mb-6 animate-floating">
+                            <p>
+                                잠깐! <br/>
+                                새로운 분석 리포트가 도착했습니다! <br/>
+                                상단의 종 아이콘을 눌러 확인해주세요!
+                            </p>
+                        </div>
+                        <button
+                            className="px-8 py-4 mt-4 text-lg font-semibold text-black rounded-full bg-primary-20"
+                            onClick={() => handleCloseNotification()}
+                        >
+                            확인하러 가기
+                        </button>
+                    </div>
+                </div>
+            )}
             <div className="fixed top-0 z-10 w-full">
                 <Header/>
             </div>

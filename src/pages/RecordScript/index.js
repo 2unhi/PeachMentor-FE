@@ -167,7 +167,6 @@ const RecordScript = ({selectedDate}) => {
         audio.onended = () => setActiveAudio(null);
     };
 
-
     const handleCloseNotification = () => {
         setIsNewReport(false);
     }
