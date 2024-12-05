@@ -10,7 +10,10 @@ const AISpeechPopup = ({ isOpen, onClose, response }) => {
           <h2 className="text-xl font-semibold">AI 답변</h2>
         </div>
 
-        <div className="p-4 overflow-y-auto" style={{ maxHeight: "60vh" }}>
+        <div
+          className="p-4 overflow-y-auto scrollbar-hide"
+          style={{ maxHeight: "60vh" }}
+        >
           {response && response.length > 0 ? (
             response.map((item, index) => (
               <div

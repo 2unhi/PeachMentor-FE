@@ -87,7 +87,7 @@ const CalendarPage = () => {
   return (
     <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
       <Header />
-      <div className="flex-1 px-4 pb-5 mx-auto overflow-y-auto">
+      <div className="flex-1 px-4 pb-5 mx-auto overflow-y-auto scrollbar-hide">
         <div className="flex justify-center items-center w-full pt-4 mb-[-4px]">
           <h1 className="px-4 py-2 text-base font-bold rounded-lg text-grayscale-90 bg-grayscale-10">
             날짜를 선택하면 당일 피드백을 확인할 수 있어요

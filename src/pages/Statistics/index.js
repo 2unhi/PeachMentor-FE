@@ -88,7 +88,7 @@ const StatisticsPage = () => {
   return (
     <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
       <Header />
-      <div className="flex-1 w-full px-4 pt-3 pb-5 mx-auto overflow-y-auto bg-white">
+      <div className="flex-1 w-full px-4 pt-3 pb-5 mx-auto overflow-y-auto bg-white scrollbar-hide">
         <p className="p-2 my-4 text-base text-center rounded-md text-grayscale-90 font-paperlogy-title bg-grayscale-10">
           최근 기록을 확인하고 말하기 습관을 분석해보세요
         </p>

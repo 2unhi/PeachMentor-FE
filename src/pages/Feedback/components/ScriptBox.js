@@ -114,7 +114,7 @@ const ScriptBox = ({
           </div>
 
           {/* 설명 텍스트 */}
-          <p className="mt-1 text-sm break-words whitespace-normal text-grayscale-100">
+          <p className="mt-1 text-sm break-words whitespace-normal text-grayscale-100 scrollbar-hide">
             {description}
           </p>
         </div>

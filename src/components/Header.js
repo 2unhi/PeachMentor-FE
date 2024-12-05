@@ -157,7 +157,10 @@ const Header = () => {
                 ? `${firstDate}~${lastDate} : 분석 리포트`
                 : "분석 리포트가 아직 없습니다!"}
             </h2>
-            <div className="mb-4 overflow-y-auto" style={{ maxHeight: "50vh" }}>
+            <div
+              className="mb-4 overflow-y-auto scrollbar-hide"
+              style={{ maxHeight: "50vh" }}
+            >
               <pre className="whitespace-pre-wrap">{analysisText}</pre>
             </div>
             <button

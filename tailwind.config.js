@@ -81,5 +81,5 @@ module.exports = {
       mobile: "390px",
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };
