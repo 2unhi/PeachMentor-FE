@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {FaStar} from "react-icons/fa";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
@@ -7,6 +7,7 @@ import ScriptBox from "./components/ScriptBox";
 import SelfFeedbackPopup from "./components/SelfFeedbackPopup";
 import instance from "../../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../../constants/api";
+import {NotificationContext} from "../../context/NotificationProvider";
 
 const userImage = "/images/record_user.png";
 const aiImage = "/images/record_ai.png";
@@ -29,6 +30,15 @@ const RecordScript = ({selectedDate}) => {
 
     // 별표 및 안내 문구 표시 상태 관리
     const [showGuide, setShowGuide] = useState(true);
+
+    const {
+        isNewReport,
+        setIsNewReport,
+        analysisText,
+        setAnalysisText,
+        setFirstDate,
+        setLastDate,
+    } = useContext(NotificationContext);
 
     useEffect(() => {
         const getFeedbackData = async () => {
@@ -69,11 +79,38 @@ const RecordScript = ({selectedDate}) => {
             }
         };
 
+        const getAnalysisReport = async () => {
+            try {
+                const response = await instance.get(`${SPRING_API_URL}/analysis`);
+                if (response.data.isSuccess) {
+                    if (response.data.code === "STATISTICS2003") {
+                        const newAnalysisText = response.data.result.analysisText;
+                        const firstDate = response.data.result.firstDate;
+                        const lastDate = response.data.result.lastDate;
+                        if (newAnalysisText !== analysisText) {
+                            setIsNewReport(true);
+                            setAnalysisText(newAnalysisText);
+                            setFirstDate(firstDate);
+                            setLastDate(lastDate);
+                        }
+                        console.log("유저 7일 분석 레포트 받아오기 완료");
+                    } else {
+                        console.error("유저 7일 분석 레포트 받아오기 api 오류");
+                    }
+                } else {
+                    console.error("서버 에러");
+                }
+            } catch (error) {
+                console.error("유저 7일 분석 레포트 받아오기 실패");
+            }
+        }
+
         const saveAnalysis = async () => {
             try {
                 const response = await instance.post(`${SPRING_API_URL}/analysis`);
                 if (response.data.isSuccess) {
                     if (response.data.code === "STATISTICS2002") {
+                        getAnalysisReport();
                         console.log("유저 7일 분석 레포트 생성 완료");
                     } else {
                         console.error("유저 7일 분석 레포트 생성 실패");
@@ -105,8 +142,8 @@ const RecordScript = ({selectedDate}) => {
 
         getAiResponse();
         getFeedbackData();
-        getCanSaveAnalysis();
-    }, []);
+        getCanSaveAnalysis(); // 분석 가능해? -> 가능하면 분석하고 분석을 새로 만들었으면 최근 리포트 가져오기
+    });
 
     useEffect(() => {
         // 5초 후에 강조 문구 제거
@@ -117,12 +154,6 @@ const RecordScript = ({selectedDate}) => {
         return () => clearTimeout(timer);
     }, []);
 
-    <div
-        className="className=relative flex flex-col items-center justify-center w-full px-4 py-2 rounded-md bg-grayscale-10">
-        <p className="text-base font-paperlogy-title font-regular">
-            오늘 하루도 복숭아멘토 챌린지 성공!
-        </p>
-    </div>;
     const playAudioWithGauge = (audioUrl) => {
         const audio = new Audio(audioUrl);
         audio.play();
@@ -130,13 +161,35 @@ const RecordScript = ({selectedDate}) => {
         audio.onended = () => setActiveAudio(null);
     };
 
+    const handleCloseNotification = () => {
+        setIsNewReport(false);
+    }
+
     return (
         <div className="relative flex flex-col w-full min-h-screen overflow-hidden">
+            {isNewReport && (
+                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50">
+                    <div className="animate-floating fixed z-50" style={{top: '23px', right: '580px'}}>
+                        <img src="/images/arrow.png" alt=""/>
+                    </div>
+                    <div
+                        className="relative flex flex-col items-center text-xl font-semibold text-center text-white font-paperlogy-heading">
+                        <div className="mt-6 mb-6 animate-floating">
+                            <p> 잠깐! <br/> 새로운 분석 리포트가 도착했습니다! </p>
+                        </div>
+                        <button
+                            className="px-8 py-4 mt-4 text-lg font-semibold text-black rounded-full bg-primary-20"
+                            onClick={() => handleCloseNotification()}
+                        >
+                            확인하러 가기
+                        </button>
+                    </div>
+                </div>
+            )}
             {/* Header */}
             <div className="fixed top-0 z-20 w-full">
                 <Header/>
             </div>
-
             {/* 컨텐츠 */}
             <div className="flex-1 w-full max-w-[500px] mx-auto pt-24 pb-24 overflow-y-auto px-4 space-y-6 bg-white">
                 <div className="flex justify-center space-x-8">

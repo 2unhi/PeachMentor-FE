@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import instance from "../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../constants/api";
@@ -6,49 +6,12 @@ import {NotificationContext} from "../context/NotificationProvider";
 
 const Header = () => {
     const navigate = useNavigate();
-    const {
-        isNewReport,
-        setIsNewReport,
-        analysisText,
-        setAnalysisText,
-        firstDate,
-        setFirstDate,
-        lastDate,
-        setLastDate,
-    } = useContext(NotificationContext);
-
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    useEffect(() => {
-        const handleGetReport = async () => {
-            try {
-                const response = await instance.get(`${SPRING_API_URL}/analysis`);
-                if (response.data.isSuccess) {
-                    if (response.data.code === "STATISTICS2003") {
-                        const newAnalysisText = response.data.result.analysisText;
-                        const firstDate = response.data.result.firstDate;
-                        const lastDate = response.data.result.lastDate;
-                        if (newAnalysisText !== analysisText) {
-                            setIsNewReport(true);
-                            setAnalysisText(newAnalysisText);
-                            setFirstDate(firstDate);
-                            setLastDate(lastDate);
-                        }
-                        console.log("유저 7일 분석 레포트 받아오기 완료");
-                    } else {
-                        console.error("유저 7일 분석 레포트 받아오기 api 오류");
-                    }
-                } else {
-                    console.error("서버 에러");
-                }
-            } catch (error) {
-                console.error("유저 7일 분석 레포트 받아오기 실패");
-            }
-        }
-
-        handleGetReport();
-    }, [analysisText, setIsNewReport, setAnalysisText, setFirstDate, setLastDate])
-
+    const {
+        analysisText,
+        firstDate,
+        lastDate,
+    } = useContext(NotificationContext);
 
     // Header의 복숭아멘토 텍스트 클릭 시 메인 페이지로 이동
     const handleLogoClick = async () => {
@@ -103,16 +66,13 @@ const Header = () => {
             `/main?selfFeedback=${selfFeedback}&isCompleteSpeech=${isCompleteSpeech}`
         );
     };
-    const handleCloseNotification = () => {
-        setIsNewReport(false);
-    };
-
-    const handleClickNotification = () => {
-        setIsModalOpen(true);
-    }
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+    };
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
     };
 
     const handleMyPageClick = () => {
@@ -133,7 +93,7 @@ const Header = () => {
                         src="/images/notification.svg"
                         alt="Notification Icon"
                         className="cursor-pointer w-7 h-7"
-                        onClick={handleClickNotification}
+                        onClick={handleOpenModal}
                     />
                     <img
                         src="/webp/mypage_menu.webp"
@@ -160,19 +120,6 @@ const Header = () => {
                             onClick={handleCloseModal}
                         >
                             닫기
-                        </button>
-                    </div>
-                </div>
-            )}
-            {isNewReport && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white p-4 rounded-lg shadow-lg text-center">
-                        <p className="text-lg font-bold mb-4">새로운 분석 리포트가 도착했습니다!</p>
-                        <button
-                            className="px-4 py-2 bg-primary-500 text-black rounded"
-                            onClick={handleCloseNotification}
-                        >
-                            확인
                         </button>
                     </div>
                 </div>
