@@ -1,13 +1,22 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import instance from "../axios/TokenInterceptor";
 import {SPRING_API_URL} from "../constants/api";
+import {NotificationContext} from "../context/NotificationProvider";
 
 const Header = () => {
     const navigate = useNavigate();
-    const [analysisText, setAnalysisText] = useState("");
-    const [firstDate, setFirstDate] = useState("");
-    const [lastDate, setLastDate] = useState("");
+    const {
+        isNewReport,
+        setIsNewReport,
+        analysisText,
+        setAnalysisText,
+        firstDate,
+        setFirstDate,
+        lastDate,
+        setLastDate,
+    } = useContext(NotificationContext);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
@@ -16,9 +25,15 @@ const Header = () => {
                 const response = await instance.get(`${SPRING_API_URL}/analysis`);
                 if (response.data.isSuccess) {
                     if (response.data.code === "STATISTICS2003") {
-                        setAnalysisText(response.data.result.analysisText);
-                        setFirstDate(response.data.result.firstDate);
-                        setLastDate(response.data.result.lastDate);
+                        const newAnalysisText = response.data.result.analysisText;
+                        const firstDate = response.data.result.firstDate;
+                        const lastDate = response.data.result.lastDate;
+                        if (newAnalysisText !== analysisText) {
+                            setIsNewReport(true);
+                            setAnalysisText(newAnalysisText);
+                            setFirstDate(firstDate);
+                            setLastDate(lastDate);
+                        }
                         console.log("유저 7일 분석 레포트 받아오기 완료");
                     } else {
                         console.error("유저 7일 분석 레포트 받아오기 api 오류");
@@ -32,7 +47,7 @@ const Header = () => {
         }
 
         handleGetReport();
-    }, [analysisText])
+    }, [analysisText, setIsNewReport, setAnalysisText, setFirstDate, setLastDate])
 
 
     // Header의 복숭아멘토 텍스트 클릭 시 메인 페이지로 이동
@@ -88,6 +103,9 @@ const Header = () => {
             `/main?selfFeedback=${selfFeedback}&isCompleteSpeech=${isCompleteSpeech}`
         );
     };
+    const handleCloseNotification = () => {
+        setIsNewReport(false);
+    };
 
     const handleClickNotification = () => {
         setIsModalOpen(true);
@@ -142,6 +160,19 @@ const Header = () => {
                             onClick={handleCloseModal}
                         >
                             닫기
+                        </button>
+                    </div>
+                </div>
+            )}
+            {isNewReport && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-4 rounded-lg shadow-lg text-center">
+                        <p className="text-lg font-bold mb-4">새로운 분석 리포트가 도착했습니다!</p>
+                        <button
+                            className="px-4 py-2 bg-primary-500 text-black rounded"
+                            onClick={handleCloseNotification}
+                        >
+                            확인
                         </button>
                     </div>
                 </div>
