@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import {
@@ -10,7 +10,8 @@ import {
   YAxis,
 } from "recharts";
 import instance from "../../axios/TokenInterceptor";
-import { SPRING_API_URL } from "../../constants/api";
+import {SPRING_API_URL} from "../../constants/api";
+import {NotificationContext} from "../../context/NotificationProvider";
 
 const StatisticsPage = () => {
   const [activeKey, setActiveKey] = useState("");
@@ -19,9 +20,14 @@ const StatisticsPage = () => {
   const [statisticsData, setStatisticsData] = useState([]);
   const [level, setLevel] = useState(5);
 
-  const handleDragScroll = (event) => {
-    const isTouch = event.type === "touchstart" || event.type === "touchmove";
-    const clientX = isTouch ? event.touches[0].clientX : event.clientX;
+    const {
+        isNewReport,
+        setIsNewReport,
+    } = useContext(NotificationContext);
+
+    const handleDragScroll = (event) => {
+        const isTouch = event.type === "touchstart" || event.type === "touchmove";
+        const clientX = isTouch ? event.touches[0].clientX : event.clientX;
 
     if (scrollRef.current) {
       scrollRef.current.scrollLeft += scrollPosition - clientX;
@@ -74,16 +80,69 @@ const StatisticsPage = () => {
         } else if (response.data.code === "STATISTICS4001") {
           console.error("난이도별 통계 데이터 받아오기 실패");
         }
-        console.log("난이도별 통계 데이터 받아오기 성공");
-      } else {
-        console.error("난이도별 통계 데이터 받아오기 오류");
-        console.log(response.data.code);
-        console.log(response.data.message);
-      }
-    } catch (error) {
-      console.error("난이도별 통계 데이터 받아오기 오류");
+    };
+
+    const handleCloseNotification = () => {
+        setIsNewReport(false);
     }
-  };
+
+    return (
+        <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
+            {isNewReport && (
+                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50">
+                    <div
+                        className="relative flex flex-col items-center text-xl font-semibold text-center text-white font-paperlogy-heading">
+                        <div className="mt-6 mb-6 animate-floating">
+                            <p>
+                                잠깐! <br/>
+                                새로운 분석 리포트가 도착했습니다! <br/>
+                                상단의 종 아이콘을 눌러 확인해주세요!
+                            </p>
+                        </div>
+                        <button
+                            className="px-8 py-4 mt-4 text-lg font-semibold text-black rounded-full bg-primary-20"
+                            onClick={() => handleCloseNotification()}
+                        >
+                            확인하러 가기
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            <Header/>
+            <div className="flex flex-col items-center flex-grow p-4">
+                <p className="px-4 py-2 my-4 text-base rounded-md text-grayscale-90 font-paperlogy-title bg-grayscale-10">
+                    최근 기록을 확인하고 나의 말하기 습관을 분석해보세요.
+                </p>
+                <p className="mb-4 text-sm text-grayscale-90 font-paperlogy-title">
+                    좌우로 스크롤 하면 이전 기록을 한 번에 확인할 수 있어요
+                </p>
+                {/* 그래프 영역 */}
+                <div className="relative flex w-full">
+                    {/* 난이도 버튼 */}
+                    <div className="flex flex-col items-center justify-center mr-4 space-y-4">
+                        {[1, 2, 3].map((level) => (
+                            <button
+                                key={level}
+                                onClick={() => {
+                                    setLevel(level);
+                                    handleLevelButton(level);
+                                }}
+                                className={buttonStyle(level)}
+                            >
+                                {level}
+                            </button>
+                        ))}
+                        <button
+                            onClick={() => {
+                                setLevel(4);
+                                handleWholeButton();
+                            }}
+                            className={buttonStyle(4)}
+                        >
+                            전체
+                        </button>
+                    </div>
 
   return (
     <div className="w-full h-full max-w-[500px] mx-auto flex flex-col bg-white">
