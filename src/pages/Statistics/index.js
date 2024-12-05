@@ -122,8 +122,9 @@ const StatisticsPage = () => {
             </button>
           </div>
 
+          {/* 스크롤 가능 영역 */}
           <div
-            className="flex-grow max-w-[400px] overflow-x-auto scrollbar-hide relative flex border rounded-3xl px-2"
+            className="relative flex-grow overflow-x-auto border scrollbar-hide rounded-3xl"
             ref={scrollRef}
             onMouseDown={(e) => setScrollPosition(e.clientX)}
             onMouseMove={(e) => e.buttons === 1 && handleDragScroll(e)}
@@ -133,57 +134,59 @@ const StatisticsPage = () => {
             onTouchEnd={() => setScrollPosition(0)}
           >
             {/* 그래프 */}
-            <ResponsiveContainer width={700} height={300}>
-              <LineChart
-                data={statisticsData}
-                margin={{ top: 20, right: 20, left: 20, bottom: 10 }}
-              >
-                <YAxis
-                  dataKey={activeKey}
-                  width={50}
-                  tick={{ fontSize: 12, fill: "#333" }}
-                  axisLine={false}
-                  tickLine={false}
-                />
-                <XAxis
-                  dataKey="day"
-                  tick={{ fontSize: 12, fill: "#333" }}
-                  tickFormatter={(day) => day.substring(5)}
-                  axisLine={{ stroke: "#ccc" }}
-                  tickLine={false}
-                />
-                {/* 그래프 선 */}
-                <Line
-                  type="monotone"
-                  dataKey={activeKey}
-                  stroke="#5D9CEC"
-                  strokeWidth={3}
-                  dot={{ fill: "#5D9CEC", r: 3 }}
-                  activeDot={{ fill: "#34495E", r: 7 }}
-                />
-                <Tooltip
-                  cursor={false}
-                  contentStyle={{
-                    backgroundColor: "#D6EDFF",
-                    borderRadius: "8px",
-                    color: "#000000",
-                    fontSize: "14px",
-                  }}
-                  labelFormatter={(label) =>
-                    `날짜: ${label.substring(5).replace("-", "/")}`
-                  }
-                  itemStyle={{ color: "#00325C" }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="min-w-[800px] pr-4">
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart
+                  data={statisticsData}
+                  margin={{ top: 25, right: 10, left: 0, bottom: 5 }}
+                >
+                  <YAxis
+                    dataKey={activeKey}
+                    width={50}
+                    tick={{ fontSize: 14, fill: "#333" }}
+                    axisLine={false}
+                    tickLine={false}
+                  />
+                  <XAxis
+                    dataKey="day"
+                    tick={{ fontSize: 14, fill: "#333" }}
+                    tickFormatter={(day) => day.substring(5)}
+                    axisLine={{ stroke: "#ccc" }}
+                    tickLine={false}
+                  />
+                  {/* 그래프 선 */}
+                  <Line
+                    type="monotone"
+                    dataKey={activeKey}
+                    stroke="#5D9CEC"
+                    strokeWidth={3}
+                    dot={{ fill: "#5D9CEC", r: 4 }}
+                    activeDot={{ fill: "#34495E", r: 6 }}
+                  />
+                  <Tooltip
+                    cursor={false}
+                    contentStyle={{
+                      backgroundColor: "#D6EDFF",
+                      borderRadius: "8px",
+                      color: "#000000",
+                      fontSize: "16px",
+                    }}
+                    labelFormatter={(label) =>
+                      `날짜: ${label.substring(5).replace("-", "/")}`
+                    }
+                    itemStyle={{ color: "#00325C" }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
 
         {/* 분석 종류 버튼 */}
-        <div className="flex justify-center mt-4 space-x-4">
+        <div className="flex justify-center mt-6 space-x-6">
           <button
             onClick={() => setActiveKey("추임새")}
-            className={`px-7 py-3 text-base font-semibold rounded-full ${
+            className={`px-6 py-3 text-lg font-semibold rounded-full ${
               activeKey === "추임새"
                 ? "bg-primary-50 text-white"
                 : "bg-grayscale-20 text-gray-700"
@@ -193,7 +196,7 @@ const StatisticsPage = () => {
           </button>
           <button
             onClick={() => setActiveKey("침묵시간")}
-            className={`px-7 py-3 text-base font-semibold rounded-full ${
+            className={`px-6 py-3 text-lg font-semibold rounded-full ${
               activeKey === "침묵시간"
                 ? "bg-primary-50 text-white"
                 : "bg-grayscale-20 text-gray-700"
