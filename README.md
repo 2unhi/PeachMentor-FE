@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+## [2024-2] 중앙대학교 소프트웨어학부 캡스톤 디자인(1) 프로젝트
+<img width="100%" alt="image" src="https://github.com/user-attachments/assets/942efb56-1186-416f-8436-81357411320f" />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## 👀 팀원
 
-In the project directory, you can run:
+| 이름    | 신현우                                        | 이진경                            | 이은학                           |
+| ------- | --------------------------------------------- | --------------------------------- | ------------------------------- |
+| **git** | [Hyun0828](https://github.com/Hyun0828) | [yjg0815](https://github.com/yjg0815) | [2unhi](https://github.com/2unhi)   |
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 💡 기획
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+> **서비스 이름**
 
-### `npm test`
+**복숭아멘토 (PeachMentor)**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+중요한 회의에서 순간적으로 말문이 막혀 본 적이 있나요? 아니면 생각한 바를 말하다가, 하고자 했던 말이 길을 잃어버린 적은요? 이런 경험은 일상을 사는 누구나 겪을 수 있는 일입니다.
 
-### `npm run build`
+사람들은 누구나 말을 잘하기를 바랍니다. 하지만 말을 잘한다는 것은, 단순히 잘 준비된 발표나 면접에서 유창하게 말하는 것에 그치지 않습니다. **예상치 못한 상황에서 자기 생각을 논리적으로 정리해 침착하게 표현하는 것**이야말로 진정한 소통 능력일 것입니다. 그러나 많은 사람들이 이러한 상황에서 당황하거나 말이 막혀 어려움을 겪습니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+사용자가 매일 다양한 주제로 1분 동안의 짧은 말하기 연습을 할 수 있게 도와주고, 사용자는 AI 분석을 통해 교정 및 피드백을 받을 수 있습니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**이를 통해 사용자가 자신의 언어 습관을 파악하고 개선하며, 일상 대화에서 자연스럽고 자신감 있게 소통할 수 있는 능력을 기를 수 있습니다.** 이러한 훈련은 면접, 발표, 회의 등 중요한 상황에서도 능력을 자연스럽게 발휘할 수 있도록 돕습니다. 또한, 언제 어디서나 쉽게 접근하여 연습할 수 있어 시간과 장소의 제약 없이 효과적인 말하기 연습이 가능합니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> **배포 링크**
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[🍑 복숭아멘토 바로가기](https://peachmentor.com/)
